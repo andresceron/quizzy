@@ -1,0 +1,16 @@
+// @import './src/scss/_exports';
+
+.btn {
+  &__next {
+    background-color: #3780e4;
+    border-radius: 50px;
+    padding: 20px 50px;
+  }
+}
+
+.quiz {
+  &__init {
+    height: calc(90vh);
+    align-items: center;
+  }
+}

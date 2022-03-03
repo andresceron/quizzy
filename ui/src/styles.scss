@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'font-awesome';
+
+// VARIABLES, MIXINS and INCLUDES
+// ----------------------------------------------------------------------------
+@import 'styles/bootstrap-imports';
+@import 'styles/utils/functions';
+@import 'styles/utils/define';
+@import 'styles/utils/variables';
+@import 'styles/utils/mixin';
+@import 'styles/utils/utilities';
+
+// GLOBAL ELEMENTS
+// ----------------------------------------------------------------------------
+@import 'styles/global/base';
+@import 'styles/global/icons';
+
+// LAYOUT
+// ----------------------------------------------------------------------------
+@import 'styles/layout/grid';
+@import 'styles/layout/buttons';
+@import 'styles/layout/sections';
+
+html, body { height: 100%; }
+body {
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #222833;
+  color: setColor(white, base);
+}

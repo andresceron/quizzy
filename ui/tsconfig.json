@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -21,7 +21,54 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@animations/*": [
+        "app/shared/animations/*"
+      ],
+      "@components/*": [
+        "app/shared/components/*"
+      ],
+      "@config/*": [
+        "app/shared/config/*"
+      ],
+      "@constants/*": [
+        "app/shared/constants/*"
+      ],
+      "@directives/*": [
+        "app/shared/directives/*"
+      ],
+      "@guards/*": [
+        "app/shared/guards/*"
+      ],
+      "@hooks/*": [
+        "app/shared/hooks/*"
+      ],
+      "@interceptors/*": [
+        "app/shared/interceptors/*"
+      ],
+      "@interfaces/*": [
+        "app/shared/interfaces/*"
+      ],
+      "@modules/*": [
+        "app/shared/modules/*"
+      ],
+      "@pipes/*": [
+        "app/shared/pipes/*"
+      ],
+      "@services/*": [
+        "app/shared/services/*"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@validators/*": [
+        "app/shared/validators/*"
+      ],
+      "@shared": [
+        "app/shared"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

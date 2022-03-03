@@ -1,0 +1,26 @@
+@import './src/styles/exports';
+
+.question__number {
+  color: #9098bc;
+  font-weight: bold;
+  font-size: 30px;
+  span {
+    font-size: 20px;
+  }
+}
+
+hr.dotted {
+  border: 1px dashed black;
+}
+
+.container {
+  color: #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+  max-width: 700px
+}
+
+.container > p {
+  font-size: 32px
+}

@@ -1,0 +1,148 @@
+@import './src/styles/exports';
+
+.navbar {
+  height: 10vh;
+}
+
+
+.ftco-navbar-light {
+  background: #fff!important;
+  z-index: 3;
+  padding: 10px 10px;
+  // -webkit-box-shadow: 0 5px 20px -17px rgba(0,0,0,.34);
+  // -moz-box-shadow: 0 5px 20px -17px rgba(0,0,0,.34);
+  box-shadow: 0 5px 20px -17px rgba(0,0,0,.34)
+}
+
+@media (max-width: 991.98px) {
+  .ftco-navbar-light {
+      background:#000!important;
+      position: relative;
+      top: 0;
+      padding: 10px 15px
+  }
+}
+
+.ftco-navbar-light .navbar-brand {
+  color: #000;
+  text-transform: uppercase;
+  font-weight: 700
+}
+
+// .ftco-navbar-light .navbar-brand:hover,.ftco-navbar-light .navbar-brand:focus {
+//   color: #000
+// }
+
+@media (max-width: 991.98px) {
+  .ftco-navbar-light .navbar-brand {
+      color:#fff
+  }
+
+  .ftco-navbar-light .navbar-nav {
+      padding-bottom: 10px
+  }
+}
+
+.ftco-navbar-light {
+  .navbar-nav {
+    .nav-item {
+      .nav-link {
+        font-size: 14px;
+        padding-top: 1.2rem;
+        padding-bottom: 1.2rem;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-weight: 400;
+        color: #333;
+        position: relative;
+        opacity: 1;
+        &--admin {
+          color: setColor(white, base);
+        }
+      }
+    }
+  }
+}
+
+.ftco-navbar-light .navbar-nav>.nav-item>.nav-link:hover {
+  color: setColor(primary, light);
+}
+
+@media (max-width: 991.98px) {
+  .ftco-navbar-light .navbar-nav>.nav-item>.nav-link {
+      padding-left:0;
+      padding-right: 0;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
+      color: rgba(255,255,255,.7)
+  }
+
+  .ftco-navbar-light .navbar-nav>.nav-item>.nav-link:hover {
+      color: #fff
+  }
+}
+
+.ftco-navbar-light .navbar-nav>.nav-item .dropdown-menu {
+  border: none;
+  background: #fff;
+  -webkit-box-shadow: 0 10px 34px -20px rgba(0,0,0,.41);
+  -moz-box-shadow: 0 10px 34px -20px rgba(0,0,0,.41);
+  box-shadow: 0 10px 34px -20px rgba(0,0,0,.41);
+  border-radius: 4px;
+  padding: 0
+}
+
+.ftco-navbar-light .navbar-nav>.nav-item .dropdown-menu .dropdown-item {
+  font-size: 12px;
+  color: #000
+}
+
+.ftco-navbar-light .navbar-nav>.nav-item .dropdown-menu .dropdown-item:hover,.ftco-navbar-light .navbar-nav>.nav-item .dropdown-menu .dropdown-item:focus {
+  background: setColor(primary, light);;
+  color: #fff
+}
+
+.ftco-navbar-light .navbar-nav>.nav-item.cta>a {
+  color: #fff;
+  background: setColor(primary, light);;
+  border-radius: 0
+}
+
+@media (max-width: 767.98px) {
+  .ftco-navbar-light .navbar-nav>.nav-item.cta>a {
+      padding-left:15px;
+      padding-right: 15px
+  }
+}
+
+@media (max-width: 991.98px) {
+  .ftco-navbar-light .navbar-nav>.nav-item.cta>a {
+      color:#fff;
+      background: setColor(primary, light);;
+      border-radius: 4px
+  }
+}
+
+.ftco-navbar-light .navbar-nav>.nav-item.active>a {
+  color: setColor(primary, light);
+}
+
+@media (max-width: 991.98px) {
+  .ftco-navbar-light .navbar-nav>.nav-item.active>a {
+      color:#fff
+  }
+}
+
+.ftco-navbar-light .navbar-toggler {
+  border: none;
+  color: rgba(255,255,255,.5)!important;
+  cursor: pointer;
+  padding-right: 0;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: .1em
+}
+
+.ftco-navbar-light .navbar-toggler:focus {
+  outline: none!important
+}

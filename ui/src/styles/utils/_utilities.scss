@@ -1,0 +1,68 @@
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+// LAYOUT
+// ------------------------------
+.inline-block {
+  display: inline-block;
+}
+.full-height {
+  height: 100%;
+}
+
+.xs-center {
+  @include breakpoint(xs) {
+    padding: 0;
+    text-align: center;
+  }
+}
+
+.container {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.form {
+  min-width: 150px;
+  width: 100%;
+}
+
+.form-element {
+  padding: 5px 0px 15px 2px;
+  width: 100%;
+}
+
+// Single column centered in row
+.center-block {
+  float: none !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+}

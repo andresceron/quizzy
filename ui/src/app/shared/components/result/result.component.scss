@@ -1,0 +1,103 @@
+@import './src/styles/exports';
+
+.results {
+  &__header {
+    background-color: #1e2f40;
+  }
+
+  &__subheader {
+    align-items: center;
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+
+  &__numbers {
+    padding: 10px 40px;
+    border: 1px solid setColor(white, base);
+    border-radius: 15px;
+    text-align: center;
+    .legend {
+      font-size: 18px;
+      letter-spacing: 7px;
+    }
+
+    &--percentage {
+      padding-right: 20px;
+      border-right: 1px solid setColor(white, base);
+
+      .number {
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      .symbol {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+    &--correct {
+      padding-left: 20px;
+      .text {
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      .total {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+
+    @include breakpoint(0, $screen-sm-max) {
+      margin-top: 20px;
+    }
+
+  }
+}
+
+.question__number {
+  color: #9098bc;
+  font-weight: bold;
+  font-size: 30px;
+  span {
+    font-size: 20px;
+  }
+}
+
+.btn {
+  &__next {
+    background-color: #3780e4;
+    border-radius: 50px;
+    padding: 20px 50px;
+  }
+}
+
+hr.dotted {
+  border: 1px dashed black;
+}
+
+.container {
+  color: #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+  max-width: 700px
+}
+
+.container > p {
+  font-size: 32px
+}
+
+.btn {
+  &.correct {
+    border: 3px solid #537e2c;
+  }
+
+  &.incorrect {
+    border: 3px solid #972626;
+  }
+  background-color: inherit;
+  pointer-events: none;
+}

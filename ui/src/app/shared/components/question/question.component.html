@@ -1,0 +1,15 @@
+<div class="container">
+  <p class="question__number">Question {{questionNumber}}<span>/{{questionTotal}}</span></p>
+  <hr class="dotted" />
+</div>
+
+<div class="container mt-2 my-2">
+  <div class="py-2 h5"><b>{{question.questionText}}</b></div>
+</div>
+
+<qz-answers
+  [options]="question.answerOptions"
+  [questionNumber]="questionNumber"
+  [resetSelected]="resetSelected"
+  (selectedAnswer)="selectedAnswerOption($event)">
+</qz-answers>
