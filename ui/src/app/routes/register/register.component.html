@@ -1,0 +1,29 @@
+<div class="container mt-0 d-flex align-content-center justify-content-center text-center vcenter login__container">
+  <div class="flex-column flex-fill">
+    <div class="container">
+      <h1 class="title">QuiZZy</h1>
+    </div>
+    <div class="container mt-0">
+      <form>
+        <div class="mb-3 input__email">
+          <label for="emailLabel" class="form-label">Username</label>
+          <input type="email" class="form-control" id="emailLabel" placeholder="username">
+        </div>
+        <div class="mb-3 input__email">
+          <label for="emailLabel" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="emailLabel" placeholder="email@quizzy.com">
+        </div>
+        <div class="mb-3 mt-3 input__password">
+          <label for="passwordLabel" class="form-label">Password</label>
+          <input type="{{showPassword ? 'password' : 'text' }}" class="form-control" id="passwordLabel" placeholder="password">
+          <i class="fa" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (click)="showPassword = !showPassword"></i>
+        </div>
+        <div class="form-text mt-3">All fields are required</div>
+        <div class="mt-4">
+          <button type="submit" class="btn btn-primary btn__rounded">Register</button>
+        </div>
+        <div class="form-text mt-3">Already have an account? <a class="form-text" [routerLink]="['/login']">Login</a></div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <div class="container mt-sm-2 my-1">
   <div class="question ml-sm-5 pl-sm-5 pt-2">
-    <div class="pt-3 d-flex flex-column gap-4" *ngFor="let option of options; let i = index">
+    <div class="pt-3 d-flex flex-column gap-4" *ngFor="let option of randomizedOptions; let i = index">
         <button type="button" class="btn btn-block btn__options text-start" [ngClass]="{'selected': isSelected === i}" (click)="selected(option, i)">
           <span class="text">{{option.answerText}}</span>
         </button>

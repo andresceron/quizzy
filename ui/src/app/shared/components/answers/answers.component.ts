@@ -16,11 +16,15 @@ import { Subject } from 'rxjs';
 })
 
 export class AnswersComponent implements OnInit {
-  @Input() options: any;
+  @Input() set options(data: any[]) {
+    this.randomizeOptions(data)
+  }
+
   @Input() questionNumber: number = 0;
   @Input() resetSelected = new Subject<boolean>();
   @Output() selectedAnswer = new EventEmitter<any>();
 
+  public randomizedOptions: any = [];
   public isSelected: number | null = null;
 
   constructor(
@@ -30,6 +34,14 @@ export class AnswersComponent implements OnInit {
     this.resetSelected.subscribe(() => {
       this.isSelected = null;
     })
+  }
+
+  private randomizeOptions(options: any[]) {
+
+    this.randomizedOptions =
+      options.map(value => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value);
   }
 
   public selected(option: any, index: number) {
