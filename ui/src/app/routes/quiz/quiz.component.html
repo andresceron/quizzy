@@ -1,6 +1,6 @@
 
   <ng-container *ngIf="status === 'init'">
-    <div class="container mt-0 d-flex align-content-center justify-content-center text-center vcenter vcenter--header">
+    <div class="container container__quizzy container__quizzy--md init-quiz vcenter vcenter--header">
       <div class="container__start">
         <h3 class="title">{{quizName}}</h3>
         <p class="description px3">{{quizDescription}}</p>
@@ -23,17 +23,19 @@
 
   <ng-container *ngIf="status === 'inProgress'">
     <qz-timer
+      [class]="'container container__quizzy'"
       [duration]="duration"
       [reset]="resetTimerSubject"
       (timeEnd)="timerCallback($event)"></qz-timer>
     <qz-question
+      [class]="'container container__quizzy'"
       [question]="currentQuestion"
       [questionNumber]="currentQuestionIndex + 1"
       [questionTotal]="totalQuestions"
       [resetSelected]="nextActionSubject"
       (questionResponse)="questionResponse($event)"></qz-question>
 
-    <div class="container mt-sm-5 my-1">
+    <div class="container container__quizzy mt-sm-5 my-1">
       <div class="d-flex justify-content-center pt-5">
         <div class="ml-auto mr-sm-5">
           <button class="btn btn-primary btn__rounded" (click)="nextQuestion(currentQuestionIndex)">{{buttonText}}</button>
@@ -44,6 +46,7 @@
 
   <ng-container *ngIf="status === 'showResults'">
     <qz-result
+      [class]="'container container__quizzy'"
       [resultData]="quizResponses"
     ></qz-result>
     <div class="container mt-sm-5 my-1">

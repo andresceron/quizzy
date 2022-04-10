@@ -1,0 +1,12 @@
+.container {
+  &__quizzy {
+    max-width: 700px;
+    flex-direction: column;
+    flex: 1 1 auto;
+    &--md {
+      @include breakpoint(md) {
+        max-width: 450px;
+      }
+    }
+  }
+}

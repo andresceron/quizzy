@@ -1,13 +1,14 @@
-<div class="container pb-0">
+<div class="pb-0" [ngClass]="class">
   <p class="question__number">Question {{questionNumber}}<span>/{{questionTotal}}</span></p>
   <hr>
 </div>
 
-<div class="container">
+<div [ngClass]="class">
   <p class="text">{{question.questionText}}</p>
 </div>
 
 <qz-answers
+  [class]="class"
   [options]="question.answerOptions"
   [questionNumber]="questionNumber"
   [resetSelected]="resetSelected"

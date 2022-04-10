@@ -20,6 +20,7 @@ export class QuestionComponent implements OnInit {
   @Input() questionNumber: number = 0;
   @Input() questionTotal: number = 0;
   @Input() resetSelected = new Subject<boolean>();
+  @Input() class: string;
   @Output() questionResponse = new EventEmitter<{questionId: number, questionText: string, answer: any}>();
 
   public isSelected: number | null = null;

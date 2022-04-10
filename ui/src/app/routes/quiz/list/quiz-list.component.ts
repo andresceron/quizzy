@@ -53,7 +53,6 @@ export class QuizListComponent implements OnInit {
     )
     .subscribe(() => {
       this.state = window.innerWidth > 768 ? 'resetExpanded' : 'resetCollapsed';
-      console.log(window.innerWidth);
     });
   }
 

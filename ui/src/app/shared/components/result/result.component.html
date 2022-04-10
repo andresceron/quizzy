@@ -1,10 +1,10 @@
-<div class="container container__start">
+<div class="container__start" [ngClass]="class">
   <div class="section-title text-center mb-3">
     <h3>Quiz Results</h3>
   </div>
 </div>
 
-<div class="container blocks mb-3">
+<div class="blocks mb-3" [ngClass]="class">
   <div class="block">
     <p>{{percentage}}%</p>
     <span>correct</span>
@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="container mt-2 my-2">
+<div class="mt-2 my-2" [ngClass]="class">
   <div class="pt-3 d-flex flex-column gap-4" *ngFor="let result of resultData; let i = index">
       <span class="text">{{result.questionId}}. {{result.questionText}}</span>
       <button type="button" class="btn btn-block btn__options text-start" [ngClass]="{'correct': !!result.answer.isCorrect, 'incorrect': !result.answer.isCorrect}">

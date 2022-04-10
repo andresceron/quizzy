@@ -22,6 +22,7 @@ export class AnswersComponent implements OnInit {
     this.randomizeOptions(data)
   }
 
+  @Input() class: string;
   @Input() questionNumber: number = 0;
   @Input() resetSelected = new Subject<boolean>();
   @Output() selectedAnswer = new EventEmitter<any>();

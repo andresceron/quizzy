@@ -17,6 +17,7 @@ import { Subject } from 'rxjs';
 
 export class ResultComponent implements OnInit {
   @Input() resultData: any;
+  @Input() class: string;
   public totalCorrect: number = 0;
   public percentage: number = 0;
 

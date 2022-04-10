@@ -27,6 +27,7 @@ import {
 export class TimerComponent implements OnInit {
   @Input() duration: number = 30;
   @Input() reset = new Subject<void>();
+  @Input() class: string;
 
   @Output() timeEnd = new EventEmitter<boolean>();
 
