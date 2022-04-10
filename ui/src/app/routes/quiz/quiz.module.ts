@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
-
-import { SharedModule, QuestionModule, ResultModule } from '@shared';
-
+import { SharedModule, QuestionModule, ResultModule, TimerModule } from '@shared';
 import { QuizRouterModule } from './quiz-router.module';
 import { RouterModule } from '@angular/router';
 import { QuizComponent } from './quiz.component';
@@ -12,7 +10,8 @@ import { QuizComponent } from './quiz.component';
     SharedModule,
     QuizRouterModule,
     QuestionModule,
-    ResultModule
+    ResultModule,
+    TimerModule
   ],
   exports: [QuizRouterModule],
   declarations: [QuizComponent]

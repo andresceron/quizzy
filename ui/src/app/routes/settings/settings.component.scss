@@ -1,0 +1,48 @@
+@import './src/styles/_exports';
+
+.settings {
+  h3 {
+    @include title(section, setColor(white,base));
+    .highlight {
+      color: setColor(secondary, base);
+    }
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input {
+    background-color: setColor(gray, darker);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 12px;
+    border: none;
+    color: setColor(white, light);
+    &::placeholder {
+      color: setColor(gray, light);
+    }
+  }
+
+  .input {
+    &__username {
+      position: relative;
+      i.fa-user {
+        position: absolute;
+        bottom: 12px;
+        left: 20px;
+        color: setColor(gray, light);
+      }
+    }
+
+    &__password {
+      position: relative;
+      i.fa-eye, i.fa-eye-slash {
+        position: absolute;
+        bottom: 12px;
+        right: 20px;
+        color: setColor(gray, light);
+      }
+    }
+  }
+}

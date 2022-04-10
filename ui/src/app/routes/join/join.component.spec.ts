@@ -1,23 +1,25 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { HomeComponent } from './home.component';
+import { JoinComponent } from './join.component';
 import { SharedModule } from '@modules/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe('ShareComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('JoinComponent', () => {
+  let component: JoinComponent;
+  let fixture: ComponentFixture<JoinComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        HomeComponent
+        JoinComponent
       ],
       imports: [
         SharedModule,
+        RouterTestingModule,
         HttpClientTestingModule,
         RouterModule,
         BrowserModule,
@@ -29,7 +31,7 @@ describe('ShareComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(JoinComponent);
     component = fixture.componentInstance;
   });
 
@@ -37,7 +39,7 @@ describe('ShareComponent', () => {
     fixture.destroy();
   });
 
-  it('should create share component', () => {
+  it('should create join component', () => {
     expect(component).toBeTruthy();
   });
 

@@ -1,28 +1,25 @@
-<div class="container-fluid py-1 results__header">
-  <!-- <div class="row"> -->
-    <div class="container d-flex mt-0 justify-content-between results__subheader flex-column flex-md-row">
-      <p class="results__title ">QUIZ RESULTS:</p>
-      <div class="d-flex results__numbers flex-column">
-        <div class="d-flex">
-          <div class="results__numbers--percentage">
-            <span class="number">{{percentage}}<span class="symbol">%</span></span>
-          </div>
-          <div class="results__numbers--correct">
-            <span class="text">{{totalCorrect}}<span class="total"> / {{this.resultData.length}}</span></span>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center">
-          <span class="legend uppercase">correct</span>
-        </div>
-      </div>
+<div class="container container__start">
+  <div class="section-title text-center mb-3">
+    <h3>Quiz Results</h3>
+  </div>
+</div>
+
+<div class="container blocks mb-3">
+  <div class="block">
+    <p>{{percentage}}%</p>
+    <span>correct</span>
+  </div>
+  <div class="block">
+    <p>{{totalCorrect}} / {{this.resultData.length}}</p>
+    <span>correct answers</span>
+  </div>
+</div>
+
+<div class="container mt-2 my-2">
+  <div class="pt-3 d-flex flex-column gap-4" *ngFor="let result of resultData; let i = index">
+      <span class="text">{{result.questionId}}. {{result.questionText}}</span>
+      <button type="button" class="btn btn-block btn__options text-start" [ngClass]="{'correct': !!result.answer.isCorrect, 'incorrect': !result.answer.isCorrect}">
+        <span class="text">{{result.answer.answerText}}</span>
+      </button>
     </div>
-  </div>
-  <div class="container mt-2 my-2">
-    <div class="pt-3 d-flex flex-column gap-4" *ngFor="let result of resultData; let i = index">
-        <span class="text">{{result.questionId}}. {{result.questionText}}</span>
-        <button type="button" class="btn btn-block btn__options text-start" [ngClass]="{'correct': !!result.answer.isCorrect, 'incorrect': !result.answer.isCorrect}">
-          <span class="text">{{result.answer.answerText}}</span>
-        </button>
-      </div>
-  </div>
-  <!-- </div> -->
+</div>

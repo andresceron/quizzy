@@ -1,0 +1,59 @@
+@import './src/styles/_exports';
+
+.container {
+  max-width: 700px;
+  flex-direction: column;
+  flex: 1 1 auto;
+
+  .title {
+    margin-bottom: 20px;
+    @include title(section, setColor(white,base));
+  }
+
+  .description {
+    margin-bottom: 20px;
+    @include text(small, setColor(white,base));
+  }
+
+  .section {
+    @include title(small, setColor(white, base));
+  }
+
+  &__list {
+    margin-bottom: 20px;
+    .right {
+      color: setColor(white, base);
+      i:first-child {
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+.input {
+  &__duration {
+    input {
+      width: 45%;
+    }
+  }
+  &__visibility {
+    .form-group {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.form-check-input {
+  padding: 15px 15px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  width: 100%;
+  bottom: 0px;
+  padding: 15px;
+  background-color: #1d1b2d;
+}

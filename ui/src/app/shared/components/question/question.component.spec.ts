@@ -26,7 +26,7 @@ import { SharedModule } from '@modules/shared.module';
     fixture.detectChanges();
   });
 
-  it('should create sortby component', async(() => {
+  it('should create notification component', async(() => {
     expect(component).toBeTruthy();
   }));
 

@@ -1,3 +1,19 @@
+<div class="container container__start dashboard">
+  <div class="section-title text-center">
+    <h3 class="welcome mb-4">Hello, <span class="highlight">dummyuser</span>!</h3>
+  </div>
+</div>
 <div class="container">
-  <p>DASHBOARD ROUTE</p>
+  <a [routerLink]="['/user/123']" class="block block--quizzes my-3">
+    <span>My Quizzes</span>
+    <i class="fa fa-comment"></i>
+  </a>
+  <a [routerLink]="['/analytics']" class="block block--analytics my-3">
+    <span>Analytics</span>
+    <i class="fa fa-bar-chart"></i>
+  </a>
+  <a [routerLink]="['/settings']" class="block block--settings my-3">
+    <span>Settings</span>
+    <i class="fa fa-cog"></i>
+  </a>
 </div>

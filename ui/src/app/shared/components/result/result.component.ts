@@ -33,7 +33,7 @@ export class ResultComponent implements OnInit {
       return !!question.answer.isCorrect ? count = count + 1 : count;
     }, 0);
 
-    this.percentage = (this.totalCorrect / this.resultData.length) * 100;
+    this.percentage = Math.floor((this.totalCorrect / this.resultData.length) * 100);
   }
 
 }

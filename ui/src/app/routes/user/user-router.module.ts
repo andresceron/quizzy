@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home.component';
+import { UserComponent } from './user.component';
 
 const routes: Routes = [
   {
+    path: ':id',
+    component: UserComponent,
+  },
+  {
     path: '',
-    component: HomeComponent,
+    redirectTo: '/quiz/list'
   }
 ];
 
@@ -16,4 +20,4 @@ const routes: Routes = [
   ]
 })
 
-export class HomeRouterModule {}
+export class UserRouterModule {}

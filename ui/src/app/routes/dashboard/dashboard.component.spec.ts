@@ -6,8 +6,9 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe('ShareComponent', () => {
+describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
@@ -18,6 +19,7 @@ describe('ShareComponent', () => {
       ],
       imports: [
         SharedModule,
+        RouterTestingModule,
         HttpClientTestingModule,
         RouterModule,
         BrowserModule,
@@ -37,7 +39,7 @@ describe('ShareComponent', () => {
     fixture.destroy();
   });
 
-  it('should create share component', () => {
+  it('should create dashboard component', () => {
     expect(component).toBeTruthy();
   });
 

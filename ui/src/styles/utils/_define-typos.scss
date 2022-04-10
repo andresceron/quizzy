@@ -1,6 +1,10 @@
 // Typos with text definitions by parameters established
 // ----------------------------------------------------------------------------
 $title-props : (
+    logo : (
+      desktop : 48px,
+      weight : 800
+    ),
     gigantic : (
       desktop : 42px,
       mobile : 36px,
@@ -13,10 +17,10 @@ $title-props : (
     ),
     section : (
       desktop : 24px,
-      mobile : 18px,
+      mobile : 24px,
       weight : 600
     ),
-    module : (
+    block : (
       desktop : 20px,
       mobile : 18px,
       weight : 600
@@ -29,11 +33,6 @@ $title-props : (
     small : (
       desktop : 15px,
       mobile : 15px,
-      weight : 600
-    ),
-    price : (
-      desktop : 15px,
-      mobile: 15px,
       weight : 600
     )
   );
@@ -48,6 +47,10 @@ $title-props : (
     ),
     small : (
       size : 13px,
+      weight : 400
+    ),
+    xsmall : (
+      size : 11px,
       weight : 400
     ),
   );

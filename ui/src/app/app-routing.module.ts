@@ -6,7 +6,8 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadChildren: () => import('./routes/home/home.module').then(m => m.HomeModule)
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./routes/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
     path: 'login',
@@ -26,12 +27,27 @@ const routes: Routes = [
     loadChildren: () => import('./routes/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
-    path: 'home',
-    loadChildren: () => import('./routes/home/home.module').then(m => m.HomeModule)
+    path: 'join',
+    loadChildren: () => import('./routes/join/join.module').then(m => m.JoinModule)
   },
   {
     path: 'quiz',
     loadChildren: () => import('./routes/quiz/quiz.module').then(m => m.QuizModule)
+  },
+  {
+    path: 'user',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./routes/user/user.module').then(m => m.UserModule)
+  },
+  {
+    path: 'settings',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./routes/settings/settings.module').then(m => m.SettingsModule)
+  },
+  {
+    path: 'analytics',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./routes/analytics/analytics.module').then(m => m.AnalyticsModule)
   },
   {
     path: '**',

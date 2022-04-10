@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HeaderModule } from '@components/header/header.module';
+import { NotificationModule } from '@components/notification/notification.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -13,9 +15,11 @@ import { HeaderModule } from '@components/header/header.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     SharedModule,
     AppRoutingModule,
-    HeaderModule
+    HeaderModule,
+    NotificationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,8 +4,10 @@ import {
   ChangeDetectionStrategy,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  ChangeDetectorRef
 } from '@angular/core';
+import { QuizService } from '@services/quiz.service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -26,18 +28,25 @@ export class AnswersComponent implements OnInit {
 
   public randomizedOptions: any = [];
   public isSelected: number | null = null;
+  public isDisabled: boolean = false;
 
   constructor(
+    private cdr: ChangeDetectorRef,
+    private quizService: QuizService
   ) { }
 
   public ngOnInit(): void {
     this.resetSelected.subscribe(() => {
       this.isSelected = null;
     })
+
+    this.quizService.getAnswersDisabledStatus().subscribe((status) => {
+      this.isDisabled = status;
+      this.cdr.markForCheck();
+    });
   }
 
   private randomizeOptions(options: any[]) {
-
     this.randomizedOptions =
       options.map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)

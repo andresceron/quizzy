@@ -12,10 +12,11 @@ export class AppComponent implements OnDestroy {
   public hideHeader: boolean = false;
   private routerSubscription: Subscription;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router
+  ) {
     this.routerSubscription = this.router.events.subscribe(event => {
       switch (this.router.url) {
-        case '/':
         case '/login':
         case '/register':
         case '/reset-password':

@@ -1,0 +1,118 @@
+<!-- <ng-container *ngIf="step === 'init'">
+  <div class="container mt-0 d-flex align-content-center justify-content-center text-center vcenter vcenter--header">
+    <div class="container__start">
+      <h3 class="title">{{quizBuilderTitle}}</h3>
+      <p class="description px3">
+        Welcome to the quiz builder. This is the section where you can create quizzes.
+        <br><br>You start by clicking the "Start Building" button and follow the instructions of the next screen to add title, description, questions and more.
+      </p>
+    </div>
+    <div class="d-flex vcenter vcenter--header">
+      <button class="btn btn-primary btn__rounded" (click)="startBuilding()">Start Building</button>
+    </div>
+    <div class="d-flex vcenter">
+      <a class="btn btn-secondary btn__rounded" [routerLink]="['/user/123']">Exit</a>
+    </div>
+  </div>
+</ng-container> -->
+<div class="container mt-0 d-flex align-content-center justify-content-center text-center">
+  <div class="container__start">
+    <h3 class="title">{{quizBuilderTitle}}</h3>
+  </div>
+</div>
+<form #f="ngForm" [formGroup]="quizBuilderForm">
+  <!-- <ng-container *ngIf="step === 'inProgress'"> -->
+    <div class="container">
+        <div class="mb-3">
+          <label class="section py-2" for="title">Quiz Title</label>
+          <input
+            type="text"
+            name="title"
+            class="form-control form-control--rounded"
+            [ngClass]="{'error': formSubmitted && form.title?.errors?.required}"
+            formControlName="title"
+            placeholder="Your quiz title..."
+            required>
+          <qz-error-message *ngIf="formSubmitted && form.title?.errors?.required" [message]="'Title is required'"></qz-error-message>
+        </div>
+        <div class="mb-3 mt-3">
+          <label class="section py-2" for="description">Quiz Description</label>
+          <textarea
+            rows="6"
+            type="description"
+            name="description"
+            class="form-control form-control--rounded"
+            formControlName="description"
+            placeholder="Your quiz description..."></textarea>
+        </div>
+        <div class="mb-3 mt-3 input__duration">
+          <label class="section py-2" for="duration">Duration per question</label>
+          <input
+            type="number"
+            min="5"
+            max="60"
+            name="duration"
+            class="form-control form-control--rounded"
+            [ngClass]="{'error': formSubmitted && form.duration?.errors?.required}"
+            formControlName="duration"
+            placeholder="Duration...">
+            <span class="error__message" *ngIf="formSubmitted && form.duration?.errors">
+              <qz-error-message
+              *ngIf="formSubmitted && (form.duration?.errors?.required || form.duration?.errors?.min || form.duration?.errors?.max)"
+              [message]="'You need to set a duration between 5-60 seconds'"></qz-error-message>
+            </span>
+        </div>
+        <div class="mb-3 mt-3 input__visibility">
+          <p class="section py-2 mb-0">Visibility</p>
+          <div class="form-group mb-3">
+            <input
+              class="form-check-input me-3"
+              [ngClass]="{'error': formSubmitted && form.visibility?.errors?.required}"
+              type="radio"
+              value="public"
+              formControlName="visibility">
+            <label class="form-check-label" for="quiz-public">
+              Public
+            </label>
+          </div>
+          <div class="form-group">
+            <input
+              class="form-check-input me-3"
+              [ngClass]="{'error': formSubmitted && form.visibility?.errors?.required}"
+              type="radio"
+              value="private"
+              formControlName="visibility">
+            <label class="form-check-label" for="quiz-private">
+              Private
+            </label>
+          </div>
+          <span class="error__message" *ngIf="formSubmitted && form.visibility?.errors?.required">
+            You need to choose a visiblity
+          </span>
+        </div>
+        <div class="mb-3 mt-3 questions">
+          <p class="section py-2 mb-0">Questions</p>
+          <div class="questions__body">
+            <div class="container__list" *ngIf="quizQuestions.controls.length; else noQuestions">
+              <button type="button" class="btn btn-block btn__options text-start d-flex w-100 justify-content-between" *ngFor="let question of quizQuestions.controls; let i = index">
+                <span class="text">{{question.value.name}}</span>
+                <div class="right">
+                  <i class="fa fa-pencil" (click)="onEditQuestion(question.value.id)"></i>
+                  <i class="fa fa-trash" (click)="onRemoveQuestion(i)"></i>
+                </div>
+              </button>
+            </div>
+            <ng-template #noQuestions>
+              <p>No questions added yet</p>
+            </ng-template>
+            <button type="submit" class="btn btn-primary btn__rounded" (click)="addNewQuestion()"><i class="fa fa-plus me-2"></i>Add Question</button>
+          </div>
+        </div>
+    </div>
+    <div class="footer">
+      <button class="btn btn-secondary btn__rounded" (click)="onExit()">Exit</button>
+      <button class="btn btn-success btn__rounded" (click)="onSubmit()">Save Quiz</button>
+    </div>
+  <!-- </ng-container> -->
+
+</form>

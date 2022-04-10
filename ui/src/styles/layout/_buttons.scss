@@ -83,26 +83,19 @@
 // }
 
 .btn {
-  &__options {
-    padding: 10px 20px;
-    border: 3px solid #2b4868;
-    border-radius: 20px;
-    margin-bottom: 10px;
+  &-primary {
+    background-color: setColor(secondary, base);
   }
 
   &__rounded {
-    background-color: #3780e4;
-    border-radius: 50px;
-    padding: 20px 50px;
-    &:hover {
-      background-color: #2d5388;
-    }
+    border-radius: 30px;
+    padding: 10px 30px;
   }
 
   &__options {
     padding: 10px 20px;
-    border: 3px solid #2b4868;
-    border-radius: 20px;
+    border: 2px solid #2b4868;
+    border-radius: 30px;
     margin-bottom: 10px;
     &:last-child {
       margin-bottom: 0px;
@@ -113,7 +106,7 @@
     }
 
     &.selected {
-      background-color: #2b4868;
+      background-color: setColor(secondary, base);
     }
 
     .text {

@@ -117,7 +117,7 @@
 
 // Function to set title taked from Title MAP. Must to indicate title-key. Color is optional
 // -----------------------------------------------------------------------------------------
-@mixin title($c-title-key, $color: setColor(gray, darker), $c-font: $main-font) {
+@mixin title($c-title-key, $color: setColor(white, base), $c-font: $main-font) {
   @each $title-key, $title-value in $title-props {
       @if $c-title-key == $title-key {
           font-family: $main-font;
@@ -127,8 +127,7 @@
           } @else {
             // font-family: $alt-font;
           }
-          @if $c-title-key != price { color : $color; }
-          @if $c-title-key == price { color : setColor(red,dark); }
+          color : $color;
           @each $prop-key, $prop-value in $title-value {
               @if $prop-key == weight { font-weight: $prop-value; }
               @if $prop-key == desktop { font-size: $prop-value; }
@@ -173,6 +172,13 @@
               }
           }
       }
+  }
+}
+
+// Function for vendor prefixes
+@mixin vendor-prefix($name, $value) {
+  @each $vendor in ('-webkit-', '-moz-', '-ms-', '-o-', '') {
+    #{$vendor}#{$name}: #{$value};
   }
 }
 

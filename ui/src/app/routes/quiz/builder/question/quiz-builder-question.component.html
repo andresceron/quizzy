@@ -1,0 +1,64 @@
+<div class="container mt-0 d-flex align-content-center justify-content-center text-center">
+  <div class="container__start">
+    <h3 class="title">{{quizBuilderTitle}}</h3>
+  </div>
+</div>
+<form #f="ngForm" [formGroup]="questionForm" (ngSubmit)="onQuestionSave()">
+  <ng-container>
+    <div class="container container__question">
+      <div class="mb-3">
+        <label class="section py-2" for="name">Question Name</label>
+        <textarea
+          rows="6"
+          name="name"
+          class="form-control form-control--rounded"
+          [ngClass]="{'error': formSubmitted && form.name?.errors?.required}"
+          formControlName="name"
+          placeholder="Add your question here..."
+          required></textarea>
+          <!-- <qz-error-message
+            *ngIf="formSubmitted && form.name?.errors?.required"
+            [message]="'Question name is required'"
+          ></qz-error-message> -->
+      </div>
+      <div class="mb-3" formArrayName="options">
+        <label class="section py-2">Options</label>
+        <div class="d-flex mb-3" *ngFor="let option of formOptionsArray.controls; let i = index" [formGroupName]="i">
+          <input
+            [value]="true"
+            (change)="optionChange(option)"
+            type="radio"
+            class="form-control--rounded form-check-input me-3"
+            [ngClass]="{'error': formSubmitted && formOptionsArray?.errors?.requireOptionToBeChecked}"
+            name="correct"
+            formControlName="correct">
+          <input
+            type="text"
+            name="title"
+            class="form-control form-control--rounded"
+            [ngClass]="{'error': formSubmitted && option.get('name')?.errors?.required}"
+            formControlName="name"
+            placeholder="Enter Option {{i + 1}}..."
+            required>
+            <div class="option__remove">
+              <a (click)="removeOption(i)" *ngIf="i !== 0 && i !== 1">
+                <i class="fa fa-trash"></i>
+              </a>
+            </div>
+        </div>
+        <!-- <qz-error-message
+        *ngIf="formSubmitted && (formOptionsArray?.errors?.required || formOptionsArray?.errors?.requireOptionToBeChecked)"
+        [message]="'Question name is required'"
+      ></qz-error-message> -->
+        <button class="btn btn-primary btn__rounded" (click)="addOption()"><i class="fa fa-plus me-2"></i>Add Option</button>
+      </div>
+      <div class="message" *ngIf="showMessage">{{messageStatus}}</div>
+    </div>
+
+    <div class="footer">
+      <button class="btn btn-secondary btn__rounded" (click)="onBack()">Go Back</button>
+      <button type="submit" class="btn btn-success btn__rounded">Save Question</button>
+    </div>
+  </ng-container>
+
+</form>

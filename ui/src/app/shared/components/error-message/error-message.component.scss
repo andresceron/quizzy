@@ -1,0 +1,8 @@
+@import './src/styles/exports';
+
+.error {
+  @include text(small, setColor(white, base));
+  color: setColor(red, base);
+  margin-top: 5px;
+  margin-bottom: 10px;
+}

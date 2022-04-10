@@ -1,0 +1,14 @@
+<div class="notifications">
+  <div *ngFor="let notification of notifications" class="notification mb-1">
+    <ng-container *ngTemplateOutlet="notificationTpl;context:{notification:notification}"></ng-container>
+  </div>
+</div>
+
+<ng-template #notificationTpl let-notification="notification">
+  <div class="toast align-items-center show" [ngClass]="notificationBgStyle[notification.type]">
+    <div class="d-flex">
+      <div class="toast-body">{{notification.message}}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="close(notification)"></button>
+    </div>
+  </div>
+</ng-template>

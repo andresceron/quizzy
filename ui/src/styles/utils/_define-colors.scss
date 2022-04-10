@@ -1,29 +1,29 @@
 // Colors & shades of gray (less than 50)
 // ----------------------------------------------------------------------------
 $gray-base : #000;
-$blue-base: #47859F;
 
 $color-palette: (
   white: (
     base:         #DDDDDD,
+    light:        #FFFFFF,
   ),
   primary: (
-    base:         #222833,
+    base:         #1F1D36,
     dark:         #0A131F,
     light:        #447EC5
   ),
   secondary: (
-    base:         #006064,
+    base:         #088DD8,
     dark:         #00363a,
-    light:        #428e92
+    light:        #2F80ED
   ),
   gray : (
     base:         $gray-base,
     lightest:     #f3f3f3,
     lighter:      #ededed,
-    light:        #d6d6d6,
-    dark:         #b0b0b0,
-    darker:       #343a40,
+    light:        #c3c3c3,
+    dark:         #828282,
+    darker:       #595768,
     darkest:      #090D0D,
   ),
   blue: (
@@ -32,41 +32,25 @@ $color-palette: (
     light:  #8ABCEE
   ),
   green: (
-    base:   #009999,
+    base:   #219653,
     dark:   #009999,
     light:  #009999
   ),
   red: (
-    base:   #ED8C73,
-    dark:   #F9423A,
+    base:   #a05b56,
+    dark:   #c42d27,
     light:  #ED8C73
   ),
   yellow: (
-    base:   #ffec00,
+    base:   #F2C94C,
     dark:   #ffec00,
     light:  #ffec00,
     star:   #ffec00
   ),
   alerts: (
-    success-font  : #0B765D,
-    success-bg    : #C4F4EC,
-    info-font     : #298FC2,
-    info-bg       : #CEF4FF,
-    warning-font  : #C98300,
-    warning-bg    : #FFF5C8,
-    danger-font   : #F9423A,
-    danger-bg     : #FFEAE6
-  ),
-  social : (
-    fb: #3b5998,
-    tw: #0084b4,
-    ig: #8a3ab9,
-    in: #0077B5,
-    yt: #C4302C,
-    gp: #dd4b39
-  ),
-  favorite: (
-    base: #F9423A,
-    active: #C4302C
+    success-bg  : #0B765D,
+    info-bg     : #046ca1,
+    warning-bg  : #C98300,
+    danger-bg   : #c42d27,
   )
 );

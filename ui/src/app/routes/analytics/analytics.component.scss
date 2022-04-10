@@ -1,0 +1,61 @@
+@import './src/styles/_exports';
+
+h3 {
+  @include title(section, setColor(white,base));
+}
+
+.blocks {
+  display: flex;
+  width: 100%;
+  gap: 70px;
+  justify-content: space-between;
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2F80ED;
+    width: 150px;
+    height: 75px;
+    border-radius: 20px;
+    justify-content: center;
+    > p {
+      @include title(section, setColor(white, light));
+      margin-bottom: 0px;
+    }
+    > span {
+      @include text(small, setColor(white, light));
+    }
+  }
+}
+
+.list {
+  .subheader {
+    @include title(small, setColor(white, base));
+  }
+  &__item {
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 50px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #2F80ED20;
+
+    .icon-right {
+      .fa {
+        font-size: 30px;
+        color: setColor(white, base);
+      }
+    }
+
+    &:hover {
+      color: #222833;
+      background-color: #ffffff;
+    }
+
+    .title {
+      margin-bottom: 0;
+      font-weight: $medium-weight;
+    }
+  }
+}

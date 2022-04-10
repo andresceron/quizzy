@@ -1,0 +1,25 @@
+<div class="container container__start settings">
+  <div class="section-title text-center">
+    <h3 class="mb-4">Settings</h3>
+  </div>
+</div>
+<div class="container settings">
+  <form #f="ngForm" [formGroup]="settingsFormGroup">
+    <div class="mb-3 input__username">
+      <label class="py-2" for="username">Username</label>
+      <input type="text" name="username" class="form-control" formControlName="username" placeholder="Username">
+    </div>
+    <div class="mb-3 mt-3 input__password">
+      <label class="py-2" for="email">Email</label>
+      <input type="email" name="email" class="form-control" formControlName="email" placeholder="email">
+    </div>
+    <div class="mb-3 mt-3 input__password">
+      <label class="py-2" for="password">Password</label>
+      <input type="{{showPassword ? 'text' : 'password' }}" name="password" class="form-control" formControlName="password" placeholder="password">
+      <i class="fa" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (click)="showPassword = !showPassword"></i>
+    </div>
+    <div class="mt-5 text-center">
+      <button type="submit" class="btn btn-success btn__rounded" (click)="onSubmit()">Save</button>
+    </div>
+  </form>
+</div>

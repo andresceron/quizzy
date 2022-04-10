@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'qz-login',
@@ -9,8 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
   public showPassword: boolean = false;
 
-  constructor() {}
+  constructor(
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
+  onSubmit() {
+    this.router.navigate([`/dashboard`]);
+  }
 }

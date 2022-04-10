@@ -1,0 +1,75 @@
+@import './src/styles/_exports';
+
+.container {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    max-width: 700px;
+    @include breakpoint(md) {
+      max-width: 450px;
+    }
+
+  .title {
+    margin-bottom: 20px;
+    @include title(logo, setColor(white,base), $logo-font);
+  }
+
+  .subheader {
+    @include text(small, setColor(white, base));
+  }
+
+  input {
+    background-color: setColor(gray, darker);
+    padding: 10px 40px 10px 50px;
+    border-radius: 30px;
+    font-size: 12px;
+    border: none;
+    color: setColor(white, light);
+    &::placeholder {
+      color: setColor(gray, light);
+    }
+  }
+
+  .input {
+    &__password {
+      position: relative;
+
+      i.fa-lock {
+        position: absolute;
+        bottom: 12px;
+        left: 20px;
+        color: setColor(gray, light);
+      }
+
+      i.fa-eye, i.fa-eye-slash {
+        position: absolute;
+        bottom: 12px;
+        right: 20px;
+        color: setColor(gray, light);
+      }
+    }
+
+    &__email {
+      position: relative;
+      i.fa-envelope {
+        position: absolute;
+        bottom: 12px;
+        left: 20px;
+        color: setColor(gray, light);
+      }
+    }
+  }
+
+  .btn-primary {
+    background-color: setColor(secondary, base);
+  }
+
+  .login {
+    @include text(xsmall, setColor(white, base));
+    a {
+      @include text(xsmall, setColor(secondary, base));
+      text-decoration: none;
+    }
+  }
+
+}

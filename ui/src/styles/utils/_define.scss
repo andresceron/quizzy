@@ -4,9 +4,15 @@
 
 // Typography
 // ----------------------------------------------------------------------------
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&display=swap');
 $main-font: 'Montserrat', sans-serif;
+$logo-font: 'Dosis', sans-serif;
+$small-font-size: 12;
 $main-font-size: 14;
-$medium-weight: 600;
+$medium-weight: 700;
+$bold-weight: 800;
+$extrabold-weight: 900;
 
 // Typos and Colors
 // ----------------------------------------------------------------------------
@@ -14,8 +20,8 @@ $medium-weight: 600;
 @import 'define-colors';
 
 // Layout
-$header-height-mobile: 10vh;
-$header-height-desktop: 10vh;
+$header-height-mobile: 70px;
+$header-height-desktop: 87px;
 
 $searchbar-lg-width: 1080px;
 $searchbar-lg-fixed-width: 800px;

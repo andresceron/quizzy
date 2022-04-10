@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { QuizService } from '@services/quiz.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'qz-quiz',
@@ -13,104 +13,26 @@ export class QuizComponent implements OnInit, OnDestroy {
   public currentQuestion: any = {};
   public totalQuestions: any = {};
   public nextCall: boolean = false;
-  public buttonText: string = 'Next';
+  public buttonText: string = 'Next Question';
   public status: string = 'init';
 
-  public nextActionSubject = new Subject<boolean>();
-  public quizTitle: string = 'Quiz Title';
+  public readonly nextActionSubject = new Subject<boolean>();
+  public readonly resetTimerSubject = new Subject<void>();
 
-  private quizData = {
-    "quizName": "Quiz Name",
-    "quizId": 1,
-    "data": [
-      {
-        "questionId": 1,
-        "questionText": "Question 1?",
-        "answerOptions": [
-          { "answerId": 1, "answerText": "Answer A", "isCorrect": false },
-          { "answerId": 2, "answerText": "Answer B", "isCorrect": false },
-          { "answerId": 3, "answerText": "Answer C", "isCorrect": true },
-          { "answerId": 4, "answerText": "Answer D", "isCorrect": false }
-        ]
-      },
-      {
-        "questionId": 2,
-        "questionText": "Question 2?",
-        "answerOptions": [
-          { "answerId": 1, "answerText": "Answer E", "isCorrect": false },
-          { "answerId": 2, "answerText": "Answer F", "isCorrect": false },
-          { "answerId": 3, "answerText": "Answer G", "isCorrect": true },
-          { "answerId": 4, "answerText": "Answer H", "isCorrect": false }
-        ]
-      },
-      {
-        "questionId": 3,
-        "questionText": "Question 3?",
-        "answerOptions": [
-          { "answerId": 1, "answerText": "Answer I", "isCorrect": false },
-          { "answerId": 2, "answerText": "Answer J", "isCorrect": false },
-          { "answerId": 3, "answerText": "Answer K", "isCorrect": true },
-          { "answerId": 4, "answerText": "Answer L", "isCorrect": false }
-        ]
-      },
-      {
-        "questionId": 4,
-        "questionText": "Question 4?",
-        "answerOptions": [
-          { "answerId": 1, "answerText": "Answer M", "isCorrect": false },
-          { "answerId": 2, "answerText": "Answer N", "isCorrect": false },
-          { "answerId": 3, "answerText": "Answer O", "isCorrect": true },
-          { "answerId": 4, "answerText": "Answer P", "isCorrect": false }
-        ]
-      }
-    ]
-  };
+  public quizName: string = 'Quiz Title';
+  public quizDescription: string = 'Quiz Description';
+  public isNextBtnDisabled: boolean = true;
+  public hasTimeEnded: boolean = false;
 
+
+  public duration: number = 0;
   public quizResponses: any = [];
-//   public quizResponses = [
-//     {
-//       "questionId": 1,
-//       "questionText": "Question 1?",
-//       "answer": {
-//           "answerId": 1,
-//           "answerText": "Answer A",
-//           "isCorrect": false
-//       }
-//   },
-//   {
-//       "questionId": 2,
-//       "questionText": "Question 2?",
-//       "answer": {
-//           "answerId": 3,
-//           "answerText": "Answer G",
-//           "isCorrect": true
-//       }
-//   },
-//   {
-//       "questionId": 3,
-//       "questionText": "Question 3?",
-//       "answer": {
-//           "answerId": 3,
-//           "answerText": "Answer K",
-//           "isCorrect": true
-//       }
-//   },
-//   {
-//       "questionId": 4,
-//       "questionText": "Question 4?",
-//       "answer": {
-//           "answerId": 3,
-//           "answerText": "Answer O",
-//           "isCorrect": false
-//       }
-//   }
-// ];
+  private quizData = this.quizService.quizData;
 
-  constructor() {}
+  constructor(private quizService: QuizService) {}
 
   ngOnInit(): void {
-    // this.updateStatus('showResults');
-    this.setQuizTitle(this.quizData.quizName);
+    this.setQuizBasics(this.quizData);
     this.setTotalQuestions(this.quizData.data.length)
   }
 
@@ -129,34 +51,23 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   public nextQuestion(index: number): void {
+    this.checkAnswerOption();
     let currIdx = ++index;
 
     if (currIdx === this.totalQuestions) {
-      console.log('here');
-
       this.updateStatus('showResults');
+      this.buttonText = 'Finish Quiz';
       return;
     }
 
     if (currIdx === this.totalQuestions - 1) {
-      this.buttonText = 'Finish';
+      this.buttonText = 'Show Results';
     }
 
     this.setCurrentQuestion(currIdx);
     this.nextActionSubject.next(true);
-  }
-
-  private setCurrentQuestion(number: number) {
-    this.currentQuestion = this.quizData.data[number];
-    this.currentQuestionIndex = number;
-  }
-
-  private setTotalQuestions(totalQuestions: number): void {
-    this.totalQuestions = totalQuestions;
-  }
-
-  private setQuizTitle(title: string) {
-    this.quizTitle = title;
+    this.resetTimerSubject.next();
+    this.quizService.setDisableAnswersStatus(false);
   }
 
   public ngOnDestroy() {
@@ -169,6 +80,52 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.quizResponses[responseIndex] = event;
     } else {
       this.quizResponses.push(event);
+    }
+
+    console.log(this.quizResponses);
+
+  }
+
+  public copyLink(val: string) {
+    navigator.clipboard.writeText(val);
+  }
+
+  public timerCallback(hasTimeEnded: boolean) {
+    this.quizService.setDisableAnswersStatus(hasTimeEnded);
+  }
+
+  private setCurrentQuestion(number: number) {
+    this.currentQuestion = this.quizData.data[number];
+    this.currentQuestionIndex = number;
+  }
+
+  private setTotalQuestions(totalQuestions: number): void {
+    this.totalQuestions = totalQuestions;
+  }
+
+  private setQuizBasics(data: any) {
+    this.quizName = data.name;
+    this.quizDescription = data.description;
+    this.duration = data.duration;
+  }
+
+  private checkAnswerOption() {
+    console.log('quizResLen ', this.quizResponses.length);
+    console.log('currentQuestionIndex ', this.currentQuestionIndex);
+
+    const emptyAnswer = {
+      questionId: this.quizData.data[this.currentQuestionIndex].questionId,
+      questionText: this.quizData.data[this.currentQuestionIndex].questionText,
+      answer: {
+        answerId: null,
+        answerText: 'Not answered',
+        isCorrect: false
+      }
+    }
+
+    const hasBeenAnswered = !!this.quizResponses.find((response: any) => response.questionId === this.quizData.data[this.currentQuestionIndex].questionId);
+    if (!hasBeenAnswered) {
+      this.quizResponses.push(emptyAnswer);
     }
   }
 
