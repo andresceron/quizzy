@@ -12,19 +12,19 @@
     <div class="navbar-group" [@headerCollapse]="state">
       <ul class="navbar-nav">
         <li class="nav-item" routerLinkActive="active">
-          <i class="fa fa-home"></i>
+          <i class="fa fa-home" *ngIf="isMobile"></i>
           <a [routerLink]="['dashboard']" (click)="menuState()" class="nav-link">Dashboard</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <i class="fa fa-list"></i>
+          <i class="fa fa-list" *ngIf="isMobile"></i>
           <a [routerLink]="['quiz/list']" (click)="menuState()" class="nav-link">Quizzes</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <i class="fa fa-user"></i>
+          <i class="fa fa-user" *ngIf="isMobile"></i>
           <a [routerLink]="['profile']" (click)="menuState()" class="nav-link">Profile</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <i class="fa fa-sign-out"></i>
+          <i class="fa fa-sign-out" *ngIf="isMobile"></i>
           <a [routerLink]="['login']" (click)="menuState()" class="nav-link nav-link--admin">Logout</a>
         </li>
       </ul>

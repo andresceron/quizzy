@@ -47,6 +47,7 @@ import { filter, Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit {
   public state: string;
   public isQuiz: boolean;
+  public isMobile: boolean;
   private activeRoute: string;
   private currentWidth: number;
   private routerSubscription: Subscription;
@@ -59,7 +60,7 @@ export class HeaderComponent implements OnInit {
 
   public ngOnInit(): void {
     this.currentWidth = window.innerWidth;
-    if (this.currentWidth > 768) {
+    if (this.currentWidth > 992) {
       this.state = 'resetExpanded';
     } else {
       this.state = 'resetCollapsed';
@@ -78,7 +79,8 @@ export class HeaderComponent implements OnInit {
       filter((event) => event.type === SDKEventsHandlerEventType.WindowResize),
     )
     .subscribe(() => {
-      this.state = window.innerWidth > 768 ? 'resetExpanded' : 'resetCollapsed';
+      this.state = window.innerWidth > 992 ? 'resetExpanded' : 'resetCollapsed';
+      this.isMobile = window.innerWidth < 992;
       this.cdr.markForCheck();
     });
 
