@@ -79,11 +79,15 @@ export class HeaderComponent implements OnInit {
       filter((event) => event.type === SDKEventsHandlerEventType.WindowResize),
     )
     .subscribe(() => {
-      this.state = window.innerWidth > 992 ? 'resetExpanded' : 'resetCollapsed';
+      this.checkState();
       this.isMobile = window.innerWidth < 992;
       this.cdr.markForCheck();
     });
 
+  }
+
+  private checkState() {
+    this.state = window.innerWidth > 992 ? 'resetExpanded' : 'resetCollapsed';
   }
 
   private checkRouteQuiz(activeRoute: string) {
@@ -121,6 +125,8 @@ export class HeaderComponent implements OnInit {
     if (this.router.url.includes('/user') || this.router.url.includes('/analytics')) {
       this.isQuiz = false;
     }
+
+    this.checkState();
   }
 
   public animateMe() {
@@ -129,7 +135,6 @@ export class HeaderComponent implements OnInit {
 
   public menuState() {
     this.state = 'collapsed';
-    // this.router.navigate([destination]);
   }
 
   public exitQuiz() {

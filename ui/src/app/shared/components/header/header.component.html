@@ -9,22 +9,22 @@
       </button>
     </ng-template>
     <a class="navbar-brand" href="index.html">QuiZZy</a>
-    <div class="navbar-group" [@headerCollapse]="state">
+    <div class="navbar-group" [@headerCollapse]="state" *ngIf="!isQuiz">
       <ul class="navbar-nav">
         <li class="nav-item" routerLinkActive="active">
-          <i class="fa fa-home" *ngIf="isMobile"></i>
+          <!-- <i class="fa fa-home" *ngIf="isMobile"></i> -->
           <a [routerLink]="['dashboard']" (click)="menuState()" class="nav-link">Dashboard</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <i class="fa fa-list" *ngIf="isMobile"></i>
+          <!-- <i class="fa fa-list" *ngIf="isMobile"></i> -->
           <a [routerLink]="['quiz/list']" (click)="menuState()" class="nav-link">Quizzes</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <i class="fa fa-user" *ngIf="isMobile"></i>
+          <!-- <i class="fa fa-user" *ngIf="isMobile"></i> -->
           <a [routerLink]="['profile']" (click)="menuState()" class="nav-link">Profile</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <i class="fa fa-sign-out" *ngIf="isMobile"></i>
+          <!-- <i class="fa fa-sign-out" *ngIf="isMobile"></i> -->
           <a [routerLink]="['login']" (click)="menuState()" class="nav-link nav-link--admin">Logout</a>
         </li>
       </ul>

@@ -99,12 +99,17 @@
     .navbar-nav {
       margin-top: 0;
       .nav-item {
-        &.active > a {
-          color:setColor(white, base);
+        &.active {
+          background-color: inherit;
+          padding: 0;
+          > a {
+            color:setColor(secondary, base);
+            font-weight: bold;
+          }
         }
         .nav-link {
           font-size: 14px;
-          padding: 18px 20px;;
+          padding: 8px 20px;;
           font-weight: 400;
           color: setColor(white, base);
           border-top: none;
