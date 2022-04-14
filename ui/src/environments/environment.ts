@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  serverUrl: 'http://quizzy.test:3000/v1/',
+  baseUrl: 'http://quizzy.test:4100/',
 };
 
 /*

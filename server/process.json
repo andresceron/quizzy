@@ -1,0 +1,17 @@
+{
+  "name": "quizzy",
+  "script": "./app.js",
+  "cwd": "dist",
+  "error_file": "../logs/quizzy.app.err.log",
+  "out_file": "../logs/quizzy.app.out.log",
+  "log_type": "json",
+  "env": {
+    "PORT":  3000,
+    "NODE_ENV": "dev",
+    "LOG_LEVEL": "debug"
+  },
+  "env_production": {
+    "NODE_ENV": "production",
+    "LOG_LEVEL": "debug"
+  }
+}

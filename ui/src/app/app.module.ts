@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { HeaderModule } from '@components/header/header.module';
 import { NotificationModule } from '@components/notification/notification.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from './core.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    CoreModule,
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
