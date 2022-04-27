@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -7,14 +7,16 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   public title = 'QuiZZy';
   public hideHeader: boolean = false;
   private routerSubscription: Subscription;
 
   constructor(
     private router: Router
-  ) {
+  ) {}
+
+  public ngOnInit() {
     this.routerSubscription = this.router.events.subscribe(event => {
       switch (this.router.url) {
         case '/login':

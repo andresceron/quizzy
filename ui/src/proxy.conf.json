@@ -1,0 +1,9 @@
+{
+  "/api/*": {
+      "target": "https://api.quizzy.test",
+      "secure": true,
+      "pathRewrite": {
+          "^/api": ""
+      }
+  }
+}

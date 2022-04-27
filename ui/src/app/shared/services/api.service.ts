@@ -52,7 +52,7 @@ export class ApiService {
   }
 
   public post<T>(url: string, data: any, params?: { [key: string]: any }): Observable<T> {
-    return this.http.post<T>(this.config.host + url, {data: data}, this.getRequestOptions(params));
+    return this.http.post<T>(this.config.host + url, data, this.getRequestOptions(params));
   }
 
   public put<T>(url: string, data: any, params?: { [key: string]: any }, headers?: HttpHeaders): Observable<T> {
@@ -64,12 +64,7 @@ export class ApiService {
   }
 
   public patch<T>(url: string, data: any, params?: { [key: string]: any }): Observable<T> {
-    return this.http.patch<T>(this.config.host + url, {data: data}, this.getRequestOptions(params));
-  }
-
-  public upload<T>( url: string, data: any, options?: { [ key: string ]: any } ): Observable<T> {
-    console.log( 'inside upload:: ', this.config.host + url, {data: data}, options);
-    return this.http.post<T>(this.config.host + url, data, options);
+    return this.http.patch<T>(this.config.host + url, data, this.getRequestOptions(params));
   }
 
 }

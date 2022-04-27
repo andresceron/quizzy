@@ -13,7 +13,8 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 
-import { Router, RouterEvent } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '@services/auth.service';
 import { SDKEventsHandlerService } from '@shared/sdk/events-handler/events-handler.service';
 import { SDKEventsHandlerEventType } from '@shared/sdk/events-handler/events-handler.types';
 import { filter, Subscription } from 'rxjs';
@@ -48,11 +49,13 @@ export class HeaderComponent implements OnInit {
   public state: string;
   public isQuiz: boolean;
   public isMobile: boolean;
+  public isAuthenticated: boolean;
   private activeRoute: string;
   private currentWidth: number;
   private routerSubscription: Subscription;
 
   constructor(
+    private authService: AuthService,
     private eventsHandler: SDKEventsHandlerService,
     private cdr: ChangeDetectorRef,
     private router: Router
@@ -66,6 +69,11 @@ export class HeaderComponent implements OnInit {
       this.state = 'resetCollapsed';
     }
 
+    this.isAuthenticated = this.authService.isAuthenticated;
+    this.initSubscriptions();
+  }
+
+  private initSubscriptions() {
     this.routerSubscription = this.router.events.subscribe((event: any) => {
       if (event.url) {
         this.activeRoute = event.url.replace('/', '');
@@ -83,7 +91,6 @@ export class HeaderComponent implements OnInit {
       this.isMobile = window.innerWidth < 992;
       this.cdr.markForCheck();
     });
-
   }
 
   private checkState() {
@@ -91,26 +98,10 @@ export class HeaderComponent implements OnInit {
   }
 
   private checkRouteQuiz(activeRoute: string) {
-
-    // const matches = [
-    //   // '/',
-    //   '/dashboard',
-    //   '/profile',
-    //   '/analytics',
-    //   '/settings',
-    //   '/join',
-    //   '/quiz/list',
-    //   '/quiz/builder',
-    //   '/user/',
-    // ];
-
-    // const isMatch = new RegExp(matches.join('|')).test(this.router.url);
-    // this.isQuiz = !isMatch;
-
     switch (this.router.url) {
       case '/':
       case '/dashboard':
-      case '/profile':
+      case '/settings':
       case '/settings':
       case '/join':
       case '/quiz/list':
@@ -134,7 +125,9 @@ export class HeaderComponent implements OnInit {
   }
 
   public menuState() {
-    this.state = 'collapsed';
+    if (window.innerWidth < 992) {
+      this.state = 'collapsed';
+    }
   }
 
   public exitQuiz() {

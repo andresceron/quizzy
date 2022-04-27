@@ -78,6 +78,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "quizzy:build",
+            "proxyConfig": "src/proxy.conf.json",
             "port": 4100,
             "host": "quizzy.test"
           },

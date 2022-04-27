@@ -6,8 +6,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    canActivate: [AuthGuard],
-    loadChildren: () => import('./routes/dashboard/dashboard.module').then(m => m.DashboardModule)
+    redirectTo: 'quiz/list' // need to fix
   },
   {
     path: 'login',
@@ -22,17 +21,17 @@ const routes: Routes = [
     loadChildren: () => import('./routes/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
   },
   {
-    path: 'dashboard',
-    canActivate: [AuthGuard],
-    loadChildren: () => import('./routes/dashboard/dashboard.module').then(m => m.DashboardModule)
-  },
-  {
     path: 'join',
     loadChildren: () => import('./routes/join/join.module').then(m => m.JoinModule)
   },
   {
     path: 'quiz',
     loadChildren: () => import('./routes/quiz/quiz.module').then(m => m.QuizModule)
+  },
+  {
+    path: 'dashboard',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./routes/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
     path: 'user',

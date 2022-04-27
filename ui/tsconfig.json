@@ -66,6 +66,9 @@
       "@validators/*": [
         "app/shared/validators/*"
       ],
+      "@types/*": [
+        "app/shared/types/*"
+      ],
       "@shared": [
         "app/shared"
       ]
