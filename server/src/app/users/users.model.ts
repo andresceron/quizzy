@@ -1,8 +1,20 @@
 
-// Is the interface needed?
+// TOOD: Is the interface needed?
 export interface User {
-  id: number,
-  uuid: string,
+  id: string,
+  name: string,
+  email: string,
+  password: string
+}
+
+export interface UserReq {
+  id: string,
+  name: string,
+  email: string,
+  password: string
+}
+
+export interface createUser {
   name: string,
   email: string,
   password: string
