@@ -1,19 +1,20 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn
+  JoinColumn,
+  OneToMany,
+  BaseEntity,
+  PrimaryColumn,
+  ManyToOne
 } from 'typeorm';
+import { UsersEntity } from '../users/users.entity';
 import { QuizQuestionEntity } from './quiz-question.entity';
+import { QuizQuestion } from './quiz.model';
 
 @Entity('quiz')
-export class QuizEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  uuid: string;
+export class QuizEntity extends BaseEntity {
+  @PrimaryColumn('varchar')
+  id: string;
 
   @Column()
   title: string;
@@ -27,14 +28,16 @@ export class QuizEntity {
   @Column()
   visibility: boolean;
 
-  @Column({ type: 'timestamp', onUpdate: 'CURRENT_TIMESTAMP', default: () => "CURRENT_TIMESTAMP", nullable: true })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
-  // @Column({ type: 'timestamp', onUpdate: 'CURRENT_TIMESTAMP', nullable: true })
-  // updated_at: Date;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+  updated_at: Date;
 
-  @OneToOne(() => QuizQuestionEntity, quizQuestions => quizQuestions.questions, {onDelete: 'CASCADE'})
-  @JoinColumn()
-  questions: QuizQuestionEntity;
+  @OneToMany(() => QuizQuestionEntity, (quizQuestions) => quizQuestions.quiz_id, { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+  questions: QuizQuestion[];
 
+  @ManyToOne(() => UsersEntity, (user) => user.id)
+  @JoinColumn({ name: 'owner'})
+  owner: string;
 }

@@ -1,30 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, BaseEntity, PrimaryColumn, OneToMany } from 'typeorm';
+import { QuizOptionEntity } from './quiz-option.entity';
 import { QuizEntity } from './quiz.entity';
+import { QuizOption } from './quiz.model';
 
 @Entity('question')
-export class QuizQuestionEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  uuid: string;
+export class QuizQuestionEntity extends BaseEntity {
+  @PrimaryColumn('varchar')
+  id: string;
 
   @Column()
   name: string;
 
-  @Column()
+  @ManyToOne(() => QuizEntity, (quiz) => quiz.questions)
+  @JoinColumn({ name: 'quiz_id'})
   quiz_id: string;
 
-  @Column()
-  options: string;
-
-  @OneToOne(() => QuizEntity, quiz => quiz.uuid)
-  questions: QuizEntity;
-
-  // @Column({ type: 'timestamp', onUpdate: 'CURRENT_TIMESTAMP', default: () => "CURRENT_TIMESTAMP", nullable: true })
-  // created_at: Date;
-
-  // @Column({ type: 'timestamp', onUpdate: 'CURRENT_TIMESTAMP', nullable: true })
-  // updated_at: Date;
-
+  @OneToMany(() => QuizOptionEntity, (quizOptions) => quizOptions.question_id, { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+  options: QuizOption[];
 }

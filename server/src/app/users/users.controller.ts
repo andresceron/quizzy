@@ -1,5 +1,7 @@
-import { Controller, Get, Header, Param, Delete, Put, Body, Post } from '@nestjs/common';
+import { Controller, Get, Header, Param, Delete, Put, Body, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { UpdateResult } from 'typeorm';
+import { AuthUser } from './user.decorator';
 import { User } from './users.model';
 import { deletedMessage, UsersService } from './users.service';
 
@@ -10,6 +12,12 @@ export class UsersController {
   @Get()
   getUsers(): Promise<User[]> {
     return this.usersService.findAllUsers();
+  }
+
+  @Get('/me')
+  @UseGuards(AuthGuard('jwt'))
+  getMe(@AuthUser() user: User): Promise<User | null> {
+    return this.usersService.findUser(user.id);
   }
 
   @Get(':id')
@@ -23,13 +31,13 @@ export class UsersController {
   }
 
   @Put(':id')
-  @Header('content-type', 'text/html')
+  @Header('content-type', 'application/json')
   updateUser(@Param('id') id: string, @Body() user: User): Promise<UpdateResult | null> {
     return this.usersService.updateUser(id, user);
   }
 
   @Post()
-  @Header('content-type', 'text/html')
+  @Header('content-type', 'application/json')
   addUser(@Body() user: User): Promise<User | null> {
     return this.usersService.addUser(user);
   }

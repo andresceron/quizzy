@@ -1,21 +1,25 @@
-import { QuizEntity } from './quiz.entity';
-
 // TODO:: Is the interface needed?
 export interface Quiz {
-  id: number,
-  uuid: string,
+  id: string,
   title: string,
   description: string,
   duration: number,
   visibility: boolean,
-  questions: QuizQuestion
+  created_at: Date,
+  updated_at: Date
+  questions: QuizQuestion[]
 }
 
 export interface QuizQuestion {
-  id: number,
-  uuid: string,
+  id: string,
   name: string,
   quiz_id: string,
-  options: string,
-  questions: QuizEntity
+  options: QuizOption[]
+}
+
+export interface QuizOption {
+  id: string,
+  name: string,
+  correct: boolean,
+  question_id: string
 }

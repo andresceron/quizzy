@@ -10,12 +10,13 @@ import { jwtConstants, JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
 
 @Module({
+  // TODO:: Change secret and signOptions to be configured dynamically
   imports: [
     TypeOrmModule.forFeature([UsersEntity]),
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '1h' },
     }),
   ],
   controllers: [

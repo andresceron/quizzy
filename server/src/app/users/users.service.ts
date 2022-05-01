@@ -4,7 +4,7 @@ import { Repository, UpdateResult } from 'typeorm';
 import Logger from '../../config/logger';
 import { CreateUserDto } from '../../dto/create-user.dto';
 import { UsersEntity } from './users.entity';
-import { User, UserReq } from './users.model';
+import { User } from './users.model';
 import { encodePassword } from '../../utils/bcrypt.utils';
 
 export interface deletedMessage {
@@ -23,7 +23,11 @@ export class UsersService {
     return await this.usersRepo.find();
   }
 
-  async findUser(id: string): Promise<User|null> {
+  async findUser(id: string): Promise<User | null> {
+    if (!id) {
+      return null;
+    }
+
     return await this.usersRepo.findOne({
       where: {
         id: id

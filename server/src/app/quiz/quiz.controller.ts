@@ -6,9 +6,12 @@ import {
   Delete,
   Put,
   Body,
-  Post
+  Post,
+  UseGuards
 } from '@nestjs/common';
-import { UpdateResult } from 'typeorm';
+import { AuthGuard } from '@nestjs/passport';
+import { AuthUser } from '../users/user.decorator';
+import { User } from '../users/users.model';
 import { Quiz } from './quiz.model';
 import { QuizService } from './quiz.service';
 
@@ -21,9 +24,20 @@ export class QuizController {
     return this.quizService.findAllQuizzes();
   }
 
+  @Get('/user')
+  @UseGuards(AuthGuard('jwt'))
+  getUserQuizzes(@AuthUser() user: User): Promise<Quiz[]> {
+    return this.quizService.findUsersQuizzes(user.id);
+  }
+
   @Get(':id')
   getQuiz(@Param('id') id: string): Promise<Quiz | null> {
     return this.quizService.findQuiz(id);
+  }
+
+  @Get('/play/:id')
+  getPlayQuiz(@Param('id') id: string): Promise<Quiz | null | undefined> {
+    return this.quizService.findQuizWithoutAnswers(id);
   }
 
   @Delete(':id')
@@ -32,14 +46,15 @@ export class QuizController {
   }
 
   @Put(':id')
-  @Header('content-type', 'text/html')
+  @Header('content-type', 'application/json')
   updateQuiz(@Param('id') id: string, @Body() user: Quiz) {
     return this.quizService.updateQuiz(id, user);
   }
 
   @Post()
-  @Header('content-type', 'text/html')
-  newQuiz(@Body() user: Quiz): Promise<Quiz | null> {
-    return this.quizService.newQuiz(user);
+  @Header('content-type', 'application/json')
+  @UseGuards(AuthGuard('jwt'))
+  newQuiz(@AuthUser() user: User, @Body() quiz: Quiz): Promise<Quiz | null> {
+    return this.quizService.newQuiz(user.id, quiz);
   }
 }
