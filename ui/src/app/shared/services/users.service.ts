@@ -27,7 +27,7 @@ export class UsersService {
   // TODO:: Check why User isnt working
   public setUser(userId: string) {
     this.apiService
-    .get(`users/${userId}`)
+    .get(`users/me`)
     .pipe(
       first()
     ).subscribe((res: any) => { // User
