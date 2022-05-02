@@ -25,6 +25,11 @@ export class UsersController {
     return this.usersService.findUser(id);
   }
 
+  @Get('public/:id')
+  getPublicUser(@Param('id') id: string): Promise<User | null> {
+    return this.usersService.findPublicUser(id);
+  }
+
   @Delete(':id')
   deleteUser(@Param('id') id: string): Promise<deletedMessage> {
     return this.usersService.deleteUser(id);

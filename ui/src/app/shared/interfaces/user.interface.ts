@@ -8,6 +8,11 @@ export interface User {
   updated_at?: string;
 }
 
+export interface PublicUser {
+  id: string;
+  name: string;
+}
+
 export interface UserResponse {
   id: string;
   email: string;

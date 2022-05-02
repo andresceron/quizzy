@@ -35,6 +35,17 @@ export class UsersService {
     });
   }
 
+  async findPublicUser(id: string): Promise<User | null> {
+    if (!id) {
+      return null;
+    }
+
+    return await this.usersRepo.createQueryBuilder('u')
+      .select(['u.id', 'u.name'])
+      .where('u.id = :id', { id: id})
+      .getOne();
+  }
+
   async findUserEmail(email: string): Promise<User|null> {
     return await this.usersRepo.findOne({
       where: {

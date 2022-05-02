@@ -38,14 +38,29 @@ export class UsersService {
     });
   }
 
+  // TODO: Change to use stored JWT instead
   public getUser(userId: string) {
     return this.apiService
       .get(`users/${userId}`)
       .pipe(
         first(),
         map((res: any) => { // User
-          if (res?.email) {
+          if (res?.email && res?.id === this.user?.id) {
             this.currentUserSubject.next(res);
+            return res;
+          }
+          return;
+        })
+      );
+  }
+
+  public getPublicUser(userId: string) {
+    return this.apiService
+      .get(`users/public/${userId}`)
+      .pipe(
+        first(),
+        map((res: any) => { // User
+          if (res?.id) {
             return res;
           }
           return;

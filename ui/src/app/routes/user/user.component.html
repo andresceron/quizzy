@@ -1,52 +1,32 @@
 <div class="container container__start">
   <div class="section-title text-center mb-3">
-    <h3>dummyuser</h3>
+    <h3>{{user?.name}}</h3>
   </div>
 </div>
 
 <div class="container blocks mb-3">
   <div class="block">
-    <p>2</p>
-    <span>Quizzes</span>
+    <p>{{quizzes?.length}}</p>
+    <span>Total Quizzes</span>
   </div>
   <div class="block">
-    <p>23</p>
-    <span>Visitors</span>
+    <p>--</p>
+    <span>Total Visitors</span>
   </div>
 </div>
 
 <div class="container quiz-list">
 
-  <div class="new-quiz-btn my-4">
+  <div class="new-quiz-btn my-4" *ngIf="isOwner">
     <button class="btn btn-success mb-2" (click)="newQuiz()">Create New Quiz</button>
   </div>
 
-  <p>dummyuser's quizzes</p>
-
   <div class="quiz-result">
-    <div (click)="goToQuiz($event)" class="d-flex align-items-center justify-content-between my-3 list__item">
+    <div (click)="goToQuiz($event)" class="d-flex align-items-center justify-content-between my-3 list__item" *ngFor="let quiz of quizzes">
       <div>
-        <p class="title">Quiz Name 1</p>
+        <p class="title">{{quiz.title}}</p>
       </div>
-      <div class="icon-right" (click)="openMenu($event)">
-        <i class="fa fa-ellipsis-h mt-1"></i>
-      </div>
-    </div>
-
-    <div (click)="goToQuiz($event)" class="d-flex align-items-center justify-content-between my-3 list__item">
-      <div>
-        <p class="title">Quiz Name 2</p>
-      </div>
-      <div class="icon-right" (click)="openMenu($event)">
-        <i class="fa fa-ellipsis-h mt-1"></i>
-      </div>
-    </div>
-
-    <div (click)="goToQuiz($event)" class="d-flex align-items-center justify-content-between my-3 list__item">
-      <div>
-        <p class="title">Quiz Name 3</p>
-      </div>
-      <div class="icon-right" (click)="openMenu($event)">
+      <div class="icon-right" (click)="openMenu($event)" *ngIf="isOwner">
         <i class="fa fa-ellipsis-h mt-1"></i>
       </div>
     </div>

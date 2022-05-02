@@ -29,7 +29,16 @@ export class QuizService {
     return await this.quizRepo.createQueryBuilder('q')
       .leftJoinAndSelect('q.questions', 'qt')
       .leftJoinAndSelect('qt.options', 'o')
-      .where('q.user_id = :user_id', { user_id: userId })
+      .where('q.owner = :owner', { owner: userId })
+      .andWhere('q.visibility = :visibility', { visibility: true })
+      .getMany();
+  }
+
+  async findAllUsersQuizzes(userId: string): Promise<Quiz[]> {
+    return await this.quizRepo.createQueryBuilder('q')
+      .leftJoinAndSelect('q.questions', 'qt')
+      .leftJoinAndSelect('qt.options', 'o')
+      .where('q.owner = :owner', { owner: userId })
       .getMany();
   }
 

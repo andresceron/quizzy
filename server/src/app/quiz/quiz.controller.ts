@@ -24,10 +24,12 @@ export class QuizController {
     return this.quizService.findAllPublicQuizzes();
   }
 
-  @Get('/user')
-  @UseGuards(AuthGuard('jwt'))
-  getUserQuizzes(@AuthUser() user: User): Promise<Quiz[]> {
-    return this.quizService.findUsersQuizzes(user.id);
+  // TODO: Change to use JWT instead
+  @Get('/user/:userId')
+  // @UseGuards(AuthGuard('jwt'))
+  // getUserQuizzes(@AuthUser() user: User): Promise<Quiz[]> {
+  getUserQuizzes(@Param('userId') userId: string): Promise<Quiz[]> {
+    return this.quizService.findUsersQuizzes(userId);
   }
 
   @Get(':id')
