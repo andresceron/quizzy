@@ -21,7 +21,7 @@ export class QuestionComponent implements OnInit {
   @Input() questionTotal: number = 0;
   @Input() resetSelected = new Subject<boolean>();
   @Input() class: string;
-  @Output() questionResponse = new EventEmitter<{questionId: number, questionText: string, answer: any}>();
+  @Output() questionResponse = new EventEmitter<{id: number, name: string, option: any}>();
 
   public isSelected: number | null = null;
 
@@ -32,7 +32,7 @@ export class QuestionComponent implements OnInit {
   }
 
   public selectedAnswerOption(event: any) {
-    this.questionResponse.emit({questionId: this.question.questionId, questionText: this.question.questionText, answer: event})
+    this.questionResponse.emit({id: this.question.id, name: this.question.name, option: event})
   }
 
 }

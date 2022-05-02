@@ -1,6 +1,6 @@
 <div class="container container__quizzy container__start quiz-list">
   <div class="section-title text-center">
-    <h3>Quiz List</h3>
+    <h3>Quizzes</h3>
     <p>Lorem ipsum dolor sit detudzdae amet, rcquisc adipiscing elit. Aenean socada commodo ligaui egets dolor.</p>
   </div>
 
@@ -39,34 +39,11 @@
     </div>
   </div> -->
 
-  <div class="list">
-    <a [routerLink]="['/quiz/123']" class="d-flex align-items-center justify-content-between my-3 list__item">
+  <div class="list" *ngFor="let quiz of quizzes">
+    <a [routerLink]="['/quiz/', quiz.id]" class="d-flex align-items-center justify-content-between my-3 list__item">
       <div>
-        <p class="title">Quiz Name 1</p>
-        <!-- <p class="category">Category Name Here</p> -->
+        <p class="title">{{quiz.title}}</p>
       </div>
-      <!-- <div class="job-right icon-right">
-        <i class="fa fa-angle-right"></i>
-      </div> -->
-    </a>
-
-    <a [routerLink]="['/quiz/123']" class="d-flex align-items-center justify-content-between my-3 list__item">
-      <div>
-        <p class="title">Quiz Name 2</p>
-      </div>
-      <!-- <div class="job-right icon-right">
-        <i class="fa fa-angle-right"></i>
-      </div> -->
-    </a>
-
-    <a [routerLink]="['/quiz/123']" class="d-flex align-items-center justify-content-between my-3 list__item">
-      <div>
-        <p class="title">Quiz Name 3</p>
-        <!-- <p class="category">Category Name Here</p> -->
-      </div>
-      <!-- <div class="job-right icon-right">
-        <i class="fa fa-angle-right"></i>
-      </div> -->
     </a>
   </div>
 

@@ -17,9 +17,9 @@
 
 <div class="mt-2 my-2" [ngClass]="class">
   <div class="pt-3 d-flex flex-column gap-4" *ngFor="let result of resultData; let i = index">
-      <span class="text">{{result.questionId}}. {{result.questionText}}</span>
-      <button type="button" class="btn btn-block btn__options text-start" [ngClass]="{'correct': !!result.answer.isCorrect, 'incorrect': !result.answer.isCorrect}">
-        <span class="text">{{result.answer.answerText}}</span>
+      <span class="text">{{result.name}}</span>
+      <button type="button" class="btn btn-block btn__options text-start" [ngClass]="{'correct': !!result.option.is_correct, 'incorrect': !result.option.is_correct}">
+        <span class="text">{{result.option.name}}</span>
       </button>
     </div>
 </div>

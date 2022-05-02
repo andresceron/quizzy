@@ -4,12 +4,12 @@
 </div>
 
 <div [ngClass]="class">
-  <p class="text">{{question.questionText}}</p>
+  <p class="text">{{question.name}}</p>
 </div>
 
 <qz-answers
   [class]="class"
-  [options]="question.answerOptions"
+  [options]="question.options"
   [questionNumber]="questionNumber"
   [resetSelected]="resetSelected"
   (selectedAnswer)="selectedAnswerOption($event)">

@@ -2,7 +2,7 @@
   <div class="question ml-sm-5 pl-sm-5 pt-2">
     <div class="pt-3 d-flex flex-column gap-4" *ngFor="let option of randomizedOptions; let i = index">
         <button type="button" class="btn btn-block btn__options text-start" [ngClass]="{'selected': isSelected === i, 'disabled': isDisabled}" (click)="selected(option, i)">
-          <span class="text">{{option.answerText}}</span>
+          <span class="text">{{option.name}}</span>
         </button>
     </div>
   </div>

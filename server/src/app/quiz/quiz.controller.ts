@@ -21,7 +21,7 @@ export class QuizController {
 
   @Get()
   getQuizzes(): Promise<Quiz[]> {
-    return this.quizService.findAllQuizzes();
+    return this.quizService.findAllPublicQuizzes();
   }
 
   @Get('/user')

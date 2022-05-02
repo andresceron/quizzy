@@ -31,7 +31,7 @@ export class ResultComponent implements OnInit {
 
   private calculateScore() {
     this.totalCorrect = this.resultData.reduce((count: number, question: any) => {
-      return !!question.answer.isCorrect ? count = count + 1 : count;
+      return !!question.option.is_correct ? count = count + 1 : count;
     }, 0);
 
     this.percentage = Math.floor((this.totalCorrect / this.resultData.length) * 100);

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Quiz } from '@interfaces/quiz.interface';
 import { QuizService } from '@services/quiz.service';
-import { Subject } from 'rxjs';
+import { first, Subject } from 'rxjs';
 
 @Component({
   selector: 'qz-quiz',
@@ -9,6 +10,8 @@ import { Subject } from 'rxjs';
 })
 
 export class QuizComponent implements OnInit, OnDestroy {
+  public quiz: Quiz;
+
   public currentQuestionIndex: number = 0;
   public currentQuestion: any = {};
   public totalQuestions: any = {};
@@ -27,17 +30,25 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   public duration: number = 0;
   public quizResponses: any = [];
-  private quizData = this.quizService.quizData;
 
-  constructor(private quizService: QuizService) {}
+  constructor(
+    private quizService: QuizService
+  ) { }
 
   ngOnInit(): void {
-    this.setQuizBasics(this.quizData);
-    this.setTotalQuestions(this.quizData.data.length)
+    this.configureQuiz();
+  }
+
+  private configureQuiz() {
+    this.quizService.getQuiz('qz_1234').pipe(first()).subscribe((quiz: Quiz) => {
+      this.quiz = quiz;
+      this.setQuizBasics(this.quiz);
+      this.setTotalQuestions(this.quiz.questions.length)
+    });
   }
 
   public loadQuiz() {
-    this.currentQuestion = this.quizData.data[0];
+    this.currentQuestion = this.quiz.questions[0];
     this.currentQuestionIndex = 0;
     this.updateStatus('inProgress');
   }
@@ -81,13 +92,11 @@ export class QuizComponent implements OnInit, OnDestroy {
     } else {
       this.quizResponses.push(event);
     }
-
-    console.log(this.quizResponses);
-
   }
 
-  public copyLink(val: string) {
-    navigator.clipboard.writeText(val);
+  public copyLink(quizId: string) {
+    const link = `https://www.quizzy.com/quiz/${quizId}`
+    navigator.clipboard.writeText(link);
   }
 
   public timerCallback(hasTimeEnded: boolean) {
@@ -95,7 +104,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   private setCurrentQuestion(number: number) {
-    this.currentQuestion = this.quizData.data[number];
+    this.currentQuestion = this.quiz.questions[number];
     this.currentQuestionIndex = number;
   }
 
@@ -104,26 +113,24 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   private setQuizBasics(data: any) {
-    this.quizName = data.name;
+    this.quizName = data.title;
     this.quizDescription = data.description;
     this.duration = data.duration;
   }
 
   private checkAnswerOption() {
-    console.log('quizResLen ', this.quizResponses.length);
-    console.log('currentQuestionIndex ', this.currentQuestionIndex);
-
     const emptyAnswer = {
-      questionId: this.quizData.data[this.currentQuestionIndex].questionId,
-      questionText: this.quizData.data[this.currentQuestionIndex].questionText,
-      answer: {
-        answerId: null,
-        answerText: 'Not answered',
-        isCorrect: false
+      id: this.quiz.questions[this.currentQuestionIndex].id,
+      name: this.quiz.questions[this.currentQuestionIndex].name,
+      option: {
+        id: null,
+        name: 'Not answered',
+        is_correct: false
       }
     }
 
-    const hasBeenAnswered = !!this.quizResponses.find((response: any) => response.questionId === this.quizData.data[this.currentQuestionIndex].questionId);
+    const hasBeenAnswered = !!this.quizResponses.find((response: any) => response.id === this.quiz.questions[this.currentQuestionIndex].id);
+
     if (!hasBeenAnswered) {
       this.quizResponses.push(emptyAnswer);
     }

@@ -17,10 +17,11 @@ export class QuizService {
     private readonly quizRepo: Repository<QuizEntity>
   ) { }
 
-  async findAllQuizzes(): Promise<Quiz[]> {
+  async findAllPublicQuizzes(): Promise<Quiz[]> {
     return await this.quizRepo.createQueryBuilder('q')
       .leftJoinAndSelect('q.questions', 'qt')
       .leftJoinAndSelect('qt.options', 'o')
+      .where('q.visibility = :visibility', { visibility: true })
       .getMany();
   }
 
