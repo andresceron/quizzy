@@ -5,7 +5,7 @@ export function RadioButtonCheckedValidator(minRequired = 1): ValidatorFn {
     let checked = 0;
 
     control.value.forEach((option: any) => {
-      if (!!option.correct) {
+      if (!!option.is_correct) {
         checked++;
       }
     });

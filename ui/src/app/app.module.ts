@@ -9,6 +9,8 @@ import { HeaderModule } from '@components/header/header.module';
 import { NotificationModule } from '@components/notification/notification.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '@interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,13 @@ import { CoreModule } from './core.module';
     HeaderModule,
     NotificationModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

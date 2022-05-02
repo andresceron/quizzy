@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Quiz } from '@interfaces/quiz.interface';
 import { NotificationService } from '@services/notification.service';
 import { QuizBuilderService } from '@services/quiz-builder.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'qz-quiz-builder',
@@ -87,6 +89,10 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     if (this.quizBuilderForm.invalid) {
       return;
     }
+
+    this.quizBuilderService.createAndSaveQuiz(this.quizBuilderForm.value).pipe(first()).subscribe((quiz: Quiz) => {
+      console.log('what is quiz??? ', quiz);
+    })
   }
 
   public get form(): { [key: string]: AbstractControl } {

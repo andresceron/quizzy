@@ -21,7 +21,7 @@ export class QuizService {
     return await this.quizRepo.createQueryBuilder('q')
       .leftJoinAndSelect('q.questions', 'qt')
       .leftJoinAndSelect('qt.options', 'o')
-      .where('q.visibility = :visibility', { visibility: true })
+      .where('q.visibility = :visibility', { visibility: 'public' })
       .getMany();
   }
 
@@ -30,7 +30,7 @@ export class QuizService {
       .leftJoinAndSelect('q.questions', 'qt')
       .leftJoinAndSelect('qt.options', 'o')
       .where('q.owner = :owner', { owner: userId })
-      .andWhere('q.visibility = :visibility', { visibility: true })
+      .andWhere('q.visibility = :visibility', { visibility: 'public' })
       .getMany();
   }
 

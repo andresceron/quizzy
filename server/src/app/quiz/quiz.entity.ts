@@ -26,7 +26,7 @@ export class QuizEntity extends BaseEntity {
   duration: number;
 
   @Column()
-  visibility: boolean;
+  visibility: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

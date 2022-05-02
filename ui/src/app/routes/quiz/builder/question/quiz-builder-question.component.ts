@@ -19,7 +19,6 @@ export class QuizBuilderQuestionComponent implements OnInit, OnDestroy {
   public messageStatus: string;
   private quizQuestionForm: FormGroup;
   private currentQuestionId: string;
-  private questionId: string;
 
   constructor(
     private fb: FormBuilder,
@@ -66,9 +65,9 @@ export class QuizBuilderQuestionComponent implements OnInit, OnDestroy {
   public optionChange(option: AbstractControl): void {
     this.formOptionsArray?.controls?.forEach(control => {
       if (control.get('id')?.value === option.get('id')?.value) {
-        control.get('correct')?.setValue(true);
+        control.get('is_correct')?.setValue(true);
       } else {
-        control.get('correct')?.setValue(false);
+        control.get('is_correct')?.setValue(false);
       }
       control.updateValueAndValidity();
     });

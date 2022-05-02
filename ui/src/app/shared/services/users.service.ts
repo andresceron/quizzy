@@ -31,7 +31,7 @@ export class UsersService {
     .pipe(
       first()
     ).subscribe((res: any) => { // User
-      if (res?.email) {
+      if (res?.id) {
         this.currentUserSubject.next(res);
         this.user = res;
       }
@@ -45,25 +45,7 @@ export class UsersService {
       .pipe(
         first(),
         map((res: any) => { // User
-          if (res?.email && res?.id === this.user?.id) {
-            this.currentUserSubject.next(res);
-            return res;
-          }
-          return;
-        })
-      );
-  }
-
-  public getPublicUser(userId: string) {
-    return this.apiService
-      .get(`users/public/${userId}`)
-      .pipe(
-        first(),
-        map((res: any) => { // User
-          if (res?.id) {
-            return res;
-          }
-          return;
+          return res;
         })
       );
   }

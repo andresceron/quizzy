@@ -4,7 +4,7 @@ export interface Quiz {
   title: string,
   description: string,
   duration: number,
-  visibility: boolean,
+  visibility: string,
   created_at: Date,
   updated_at: Date
   questions: QuizQuestion[]
@@ -20,6 +20,6 @@ export interface QuizQuestion {
 export interface QuizOption {
   id: string,
   name: string,
-  correct: boolean,
+  is_correct: boolean,
   question_id: string
 }

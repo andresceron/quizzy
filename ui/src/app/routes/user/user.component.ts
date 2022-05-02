@@ -34,7 +34,7 @@ export class UserComponent implements OnInit {
     })
 
     this.userService
-      .getPublicUser(this.currentUserId)
+      .getUser(this.currentUserId)
       .pipe(first())
       .subscribe(publicUser => {
         this.user = publicUser;

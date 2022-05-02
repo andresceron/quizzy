@@ -6,6 +6,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
+import { Question, SelectedQuestion } from '@interfaces/quiz.interface';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -16,12 +17,12 @@ import { Subject } from 'rxjs';
 })
 
 export class QuestionComponent implements OnInit {
-  @Input() question: any;
+  @Input() question: Question;
   @Input() questionNumber: number = 0;
   @Input() questionTotal: number = 0;
   @Input() resetSelected = new Subject<boolean>();
   @Input() class: string;
-  @Output() questionResponse = new EventEmitter<{id: number, name: string, option: any}>();
+  @Output() questionResponse = new EventEmitter<SelectedQuestion>();
 
   public isSelected: number | null = null;
 
@@ -34,5 +35,4 @@ export class QuestionComponent implements OnInit {
   public selectedAnswerOption(event: any) {
     this.questionResponse.emit({id: this.question.id, name: this.question.name, option: event})
   }
-
 }

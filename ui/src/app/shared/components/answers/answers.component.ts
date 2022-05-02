@@ -7,6 +7,7 @@ import {
   EventEmitter,
   ChangeDetectorRef
 } from '@angular/core';
+import { Option } from '@interfaces/quiz.interface';
 import { QuizService } from '@services/quiz.service';
 import { Subject } from 'rxjs';
 
@@ -18,16 +19,16 @@ import { Subject } from 'rxjs';
 })
 
 export class AnswersComponent implements OnInit {
-  @Input() set options(data: any[]) {
+  @Input() set options(data: Option[]) {
     this.randomizeOptions(data)
   }
 
   @Input() class: string;
   @Input() questionNumber: number = 0;
   @Input() resetSelected = new Subject<boolean>();
-  @Output() selectedAnswer = new EventEmitter<any>();
+  @Output() selectedAnswer = new EventEmitter<Option>();
 
-  public randomizedOptions: any = [];
+  public randomizedOptions: Option[] = [];
   public isSelected: number | null = null;
   public isDisabled: boolean = false;
 
@@ -47,14 +48,14 @@ export class AnswersComponent implements OnInit {
     });
   }
 
-  private randomizeOptions(options: any[]) {
+  private randomizeOptions(options: Option[]) {
     this.randomizedOptions =
       options.map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
   }
 
-  public selected(option: any, index: number) {
+  public selected(option: Option, index: number) {
     this.isSelected = index;
     this.selectedAnswer.emit(option);
   }

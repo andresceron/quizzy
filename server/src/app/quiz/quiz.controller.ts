@@ -32,13 +32,13 @@ export class QuizController {
     return this.quizService.findUsersQuizzes(userId);
   }
 
-  @Get(':id')
-  getQuiz(@Param('id') id: string): Promise<Quiz | null> {
-    return this.quizService.findQuiz(id);
-  }
+  // @Get(':id')
+  // getQuiz(@Param('id') id: string): Promise<Quiz | null> {
+  //   return this.quizService.findQuiz(id);
+  // }
 
-  @Get('/play/:id')
-  getPlayQuiz(@Param('id') id: string): Promise<Quiz | null | undefined> {
+  @Get(':id')
+  getPlayQuiz(@Param('id') id: string): Promise<Quiz | null> {
     return this.quizService.findQuizWithoutAnswers(id);
   }
 

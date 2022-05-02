@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Quiz } from '@interfaces/quiz.interface';
 import { RadioButtonCheckedValidator } from '@shared/validators/require-option.validator';
 import { nanoid } from 'nanoid';
+import { first, map } from 'rxjs';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +13,10 @@ import { nanoid } from 'nanoid';
 export class QuizBuilderService {
   private questions = new Map<string, FormGroup>();
   private newQuestionId: string;
+  private quizQuestionForm: FormGroup;
 
   private quizBuilderForm: FormGroup = this.fb.group({
+    id: [this.generateQuizId, Validators.required],
     title: ['', [Validators.required, Validators.min(2), Validators.max(60)]],
     description: ['', [Validators.max(300)]],
     duration: [30, [Validators.required, Validators.min(5), Validators.max(60)]],
@@ -19,9 +24,10 @@ export class QuizBuilderService {
     questions: this.fb.array([])
   });
 
-  private quizQuestionForm: FormGroup;
-
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService
+  ) { }
 
   public get quiz(): FormGroup {
     return this.quizBuilderForm;
@@ -30,7 +36,7 @@ export class QuizBuilderService {
   public addNewQuestion() {
     this.newQuestionId = this.generateQuestionId;
     this.quizQuestionForm = this.getCreateQuestion(this.newQuestionId);
-    this.questions.set(this.newQuestionId, this.getCreateQuestion(this.newQuestionId));
+    this.questions.set(this.newQuestionId, this.quizQuestionForm);
   }
 
   public get assignedQuestionId() {
@@ -46,8 +52,6 @@ export class QuizBuilderService {
   }
 
   public hasCurrentQuestion(questionId: string): boolean {
-    console.log('hascurrentquestionid:: ', questionId);
-
     return this.questions.has(questionId);
   }
 
@@ -70,8 +74,21 @@ export class QuizBuilderService {
     return this.fb.group({
       id: this.generateOptionId,
       name: ['', Validators.required],
-      correct: [false]
+      is_correct: [false]
     });
+  }
+
+  public createAndSaveQuiz(data: Quiz) {
+    return this.apiService.post('quiz', data).pipe(
+      first(),
+      map((quiz: any) => {
+        return quiz;
+      })
+    )
+  }
+
+  private get generateQuizId() {
+    return 'qz_' + nanoid(6);
   }
 
   private get generateQuestionId() {
@@ -80,9 +97,6 @@ export class QuizBuilderService {
 
   private get generateOptionId() {
     return 'o_' + nanoid(6);
-  }
-
-  public mainQuizForm(): any {
   }
 
 }

@@ -3,7 +3,7 @@ export interface Quiz {
   title: string,
   description: string,
   duration: number,
-  visibility: boolean,
+  visibility: string,
   questions: Question[]
   created_at?: string;
   updated_at?: string;
@@ -13,6 +13,12 @@ export interface Question {
   id: string,
   name: string,
   options: Option[]
+}
+
+export interface SelectedQuestion {
+  id: string,
+  name: string,
+  option: Option
 }
 
 export interface Option {

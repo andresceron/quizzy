@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Quiz } from '@interfaces/quiz.interface';
+import { ActivatedRoute } from '@angular/router';
+import { Question, Quiz, SelectedQuestion } from '@interfaces/quiz.interface';
 import { QuizService } from '@services/quiz.service';
 import { first, Subject } from 'rxjs';
 
@@ -19,36 +20,40 @@ export class QuizComponent implements OnInit, OnDestroy {
   public buttonText: string = 'Next Question';
   public status: string = 'init';
 
-  public readonly nextActionSubject = new Subject<boolean>();
-  public readonly resetTimerSubject = new Subject<void>();
-
   public quizName: string = 'Quiz Title';
   public quizDescription: string = 'Quiz Description';
   public isNextBtnDisabled: boolean = true;
   public hasTimeEnded: boolean = false;
-
-
   public duration: number = 0;
   public quizResponses: any = [];
+  public randomizedQuestions: Question[] = [];
+
+  public readonly nextActionSubject = new Subject<boolean>();
+  public readonly resetTimerSubject = new Subject<void>();
+
+  private quizId: string;
 
   constructor(
+    private route: ActivatedRoute,
     private quizService: QuizService
   ) { }
 
   ngOnInit(): void {
+    this.quizId = this.route.snapshot.paramMap.get('id') || '';
     this.configureQuiz();
   }
 
   private configureQuiz() {
-    this.quizService.getQuiz('qz_1234').pipe(first()).subscribe((quiz: Quiz) => {
+    this.quizService.getQuiz(this.quizId).pipe(first()).subscribe((quiz: Quiz) => {
       this.quiz = quiz;
+      this.randomizeQuestions(this.quiz.questions);
       this.setQuizBasics(this.quiz);
       this.setTotalQuestions(this.quiz.questions.length)
     });
   }
 
   public loadQuiz() {
-    this.currentQuestion = this.quiz.questions[0];
+    this.currentQuestion = this.randomizedQuestions[0];
     this.currentQuestionIndex = 0;
     this.updateStatus('inProgress');
   }
@@ -85,8 +90,8 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.nextActionSubject.complete();
   }
 
-  public questionResponse(event: any) {
-    const responseIndex = this.quizResponses.findIndex((response: any) => response.questionId === event.questionId);
+  public questionResponse(event: SelectedQuestion) {
+    const responseIndex = this.quizResponses.findIndex((response: any) => response.id === event.id);
     if (responseIndex !== -1 ) {
       this.quizResponses[responseIndex] = event;
     } else {
@@ -104,7 +109,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   private setCurrentQuestion(number: number) {
-    this.currentQuestion = this.quiz.questions[number];
+    this.currentQuestion = this.randomizedQuestions[number];
     this.currentQuestionIndex = number;
   }
 
@@ -120,8 +125,8 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   private checkAnswerOption() {
     const emptyAnswer = {
-      id: this.quiz.questions[this.currentQuestionIndex].id,
-      name: this.quiz.questions[this.currentQuestionIndex].name,
+      id: this.randomizedQuestions[this.currentQuestionIndex].id,
+      name: this.randomizedQuestions[this.currentQuestionIndex].name,
       option: {
         id: null,
         name: 'Not answered',
@@ -134,6 +139,13 @@ export class QuizComponent implements OnInit, OnDestroy {
     if (!hasBeenAnswered) {
       this.quizResponses.push(emptyAnswer);
     }
+  }
+
+  private randomizeQuestions(questions: Question[]) {
+    this.randomizedQuestions =
+      questions.map(value => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value);
   }
 
 }

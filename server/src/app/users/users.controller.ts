@@ -22,7 +22,7 @@ export class UsersController {
 
   @Get(':id')
   getUser(@Param('id') id: string): Promise<User | null> {
-    return this.usersService.findUser(id);
+    return this.usersService.findPublicUser(id);
   }
 
   @Get('public/:id')
