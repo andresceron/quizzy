@@ -124,7 +124,12 @@ export class HeaderComponent implements OnInit {
     this.state = this.state !== 'expanded' ? 'expanded' : 'collapsed';
   }
 
-  public menuState() {
+  public menuState(logout: boolean = false) {
+    if (logout) {
+      this.authService.logout();
+      this.router.navigate(['login'])
+    }
+
     if (window.innerWidth < 992) {
       this.state = 'collapsed';
     }

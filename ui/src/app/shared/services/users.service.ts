@@ -53,9 +53,9 @@ export class UsersService {
       );
   }
 
-  public updateUser(userId: string, data: User) {
+  public updateUser(userId: string, user: User) {
     return this.apiService
-      .put( `users/${userId}`, {data: data})
+      .put( `users/${userId}`, user)
       .pipe(
         first(),
         map((res: any) => { // User

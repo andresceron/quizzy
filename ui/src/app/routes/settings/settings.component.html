@@ -5,11 +5,11 @@
 </div>
 <div class="container settings">
   <form #f="ngForm" [formGroup]="settingsFormGroup">
-    <div class="mb-3 input__username">
-      <label class="py-2" for="username">Username</label>
-      <input type="text" name="username" class="form-control" formControlName="username" placeholder="Username">
+    <div class="mb-3">
+      <label class="py-2" for="name">Name</label>
+      <input type="text" name="name" class="form-control" formControlName="name" placeholder="Name">
     </div>
-    <div class="mb-3 mt-3 input__password">
+    <div class="mb-3 mt-3">
       <label class="py-2" for="email">Email</label>
       <input type="email" name="email" class="form-control" formControlName="email" placeholder="email">
     </div>

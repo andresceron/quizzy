@@ -25,15 +25,6 @@
   }
 
   .input {
-    &__username {
-      position: relative;
-      i.fa-user {
-        position: absolute;
-        bottom: 12px;
-        left: 20px;
-        color: setColor(gray, light);
-      }
-    }
 
     &__password {
       position: relative;

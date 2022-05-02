@@ -63,8 +63,12 @@ export class UsersService {
     }
   }
 
-  async updateUser(id: string, user: User): Promise<UpdateResult> {
-    return await this.usersRepo.update({id: id}, user);
+  async updateUser(id: string, user: User): Promise<UpdateResult | null> {
+    let userData = user;
+    if (!!user.password) {
+      userData.password = encodePassword(user.password);
+    }
+    return await this.usersRepo.update({ id: id }, userData);
   }
 
   async addUser(user: CreateUserDto): Promise<User | null> {
