@@ -84,24 +84,39 @@ h3 {
       text-decoration: none;
       background-color: #2F80ED20;
 
-      .icon-right {
-        .fa {
-          font-size: 30px;
-          color: setColor(white, base);
+      .right {
+        flex: 0 1 42px;
+        color: setColor(white, base);
+        i {
+          cursor: pointer;
+          &:first-child {
+            margin-right: 15px;
+          }
         }
       }
 
       &:hover {
         color: #222833;
         background-color: #ffffff;
+        i {
+          color: setColor(primary, base);
+        }
       }
     }
   }
 
   .title {
-    margin-bottom: 0;
-    font-weight: $medium-weight;
+    flex: 0 1 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    p {
+      margin-bottom: 0;
+      font-weight: $medium-weight;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
+
 
   .category {
     font-size: em(12);

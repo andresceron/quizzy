@@ -16,18 +16,19 @@
 </div>
 
 <div class="container quiz-list">
-
   <div class="new-quiz-btn my-4" *ngIf="isOwner">
     <button class="btn btn-success mb-2" (click)="newQuiz()">Create New Quiz</button>
   </div>
 
   <div class="quiz-result">
     <div (click)="goToQuiz($event)" class="d-flex align-items-center justify-content-between my-3 list__item" *ngFor="let quiz of quizzes">
-      <div>
-        <p class="title">{{quiz.title}}</p>
+      <div class="title">
+        <p>{{quiz.title}}</p>
       </div>
-      <div class="icon-right" (click)="openMenu($event)" *ngIf="isOwner">
-        <i class="fa fa-ellipsis-h mt-1"></i>
+      <div class="right" *ngIf="isOwner">
+        <i class="fa fa-pencil" (click)="onEditQuiz($event)"></i>
+        <i class="fa fa-trash" (click)="onDeleteQuiz($event)"></i>
       </div>
     </div>
   </div>
+</div>

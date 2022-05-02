@@ -29,28 +29,34 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserId = this.route.snapshot.paramMap.get('id') || '';
-    this.userService.getUserData().pipe(first()).subscribe(user => {
-      this.isOwner = this.currentUserId === user.id;
-    })
+    this.userService
+      .getUserData()
+      .pipe(first())
+      .subscribe(user => {
+        this.isOwner = this.currentUserId === user.id;
+      })
 
     this.userService
       .getUser(this.currentUserId)
       .pipe(first())
       .subscribe(publicUser => {
         this.user = publicUser;
-    })
+      })
 
     this.quizService
       .getUserPublicQuizzes(this.currentUserId)
       .pipe(first())
       .subscribe(quizzes => {
         this.quizzes = quizzes;
-    });
-
+      });
   }
 
-  public openMenu(e: Event) {
+  public onDeleteQuiz(e: Event) {
+    e.stopPropagation();
     console.log('openMenu');
+  }
+
+  public onEditQuiz(e: Event) {
     e.stopPropagation();
   }
 
