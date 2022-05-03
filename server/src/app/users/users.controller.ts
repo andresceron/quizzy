@@ -1,5 +1,4 @@
 import { Controller, Get, Header, Param, Delete, Put, Body, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { UpdateResult } from 'typeorm';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AuthUser } from './user.decorator';
