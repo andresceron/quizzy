@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@services/auth.service';
+import { UsersService } from '@services/users.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,7 +15,9 @@ export class AppComponent implements OnInit, OnDestroy {
   private routerSubscription: Subscription;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private usersService: UsersService,
+    private authService: AuthService
   ) {}
 
   public ngOnInit() {
@@ -29,6 +33,10 @@ export class AppComponent implements OnInit, OnDestroy {
           break;
       }
     });
+
+    if (this.authService.currentAuthValue) {
+      this.usersService.setUser(this.authService.currentAuthValue.id);
+    }
   }
 
   ngOnDestroy() {

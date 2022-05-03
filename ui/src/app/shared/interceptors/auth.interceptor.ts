@@ -5,11 +5,11 @@ import { AuthService } from '@services/auth.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Get the auth token from the service.
-    const authToken = this.auth.currentAuthValue?.token || '';
+    const authToken = this.authService.currentAuthValue?.token || '';
 
     // Clone the request and replace the original headers with
     // cloned headers, updated with the authorization.
