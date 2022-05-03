@@ -26,3 +26,8 @@ export interface Option {
   name: string,
   is_correct: boolean
 }
+
+export interface DeletedQuiz {
+  deleted: boolean,
+  message: string
+}

@@ -9,7 +9,7 @@ import { User } from '@interfaces/user.interface';
 })
 export class UsersService {
   private currentUserSubject: ReplaySubject<User> = new ReplaySubject<User>(1);
-  private user: User;
+  private user: User | null;
 
   constructor(
     private apiService: ApiService
@@ -24,8 +24,13 @@ export class UsersService {
     return !!this.user?.id;
   }
 
-  // TODO:: Check why User isnt working
-  public setUser(userId: string) {
+  // TODO:: Is this needed?
+  public removeCurrentUser() {
+    this.user = null;
+  }
+
+  // TODO:: Check why User annotation isnt working
+  public setUser() {
     this.apiService
     .get(`users/me`)
     .pipe(

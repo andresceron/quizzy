@@ -26,7 +26,7 @@ export class QuizService {
       .getMany();
   }
 
-  async findUsersQuizzes(userId: string): Promise<Quiz[]> {
+  async findUsersPublicQuizzes(userId: string): Promise<Quiz[]> {
     return await this.quizRepo.createQueryBuilder('q')
       .leftJoinAndSelect('q.questions', 'qt')
       .leftJoinAndSelect('qt.options', 'o')
@@ -35,7 +35,7 @@ export class QuizService {
       .getMany();
   }
 
-  async findAllUsersQuizzes(userId: string): Promise<Quiz[]> {
+  async findUsersAllQuizzes(userId: string): Promise<Quiz[]> {
     return await this.quizRepo.createQueryBuilder('q')
       .leftJoinAndSelect('q.questions', 'qt')
       .leftJoinAndSelect('qt.options', 'o')

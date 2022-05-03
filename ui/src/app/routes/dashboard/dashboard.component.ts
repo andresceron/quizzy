@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@interfaces/user.interface';
 import { UsersService } from '@services/users.service';
-import { first } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'qz-dashboard',
@@ -10,14 +10,12 @@ import { first } from 'rxjs';
 })
 
 export class DashboardComponent implements OnInit {
-  public user: User;
+  public user$: Observable<User>;
   constructor(
     private userService: UsersService
   ) {}
 
   ngOnInit(): void {
-    this.userService.getUserData().pipe(first()).subscribe(user => {
-      this.user = user;
-    })
+    this.user$ = this.userService.getUserData();
   }
 }

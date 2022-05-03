@@ -1,6 +1,7 @@
 import { Controller, Get, Header, Param, Delete, Put, Body, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UpdateResult } from 'typeorm';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AuthUser } from './user.decorator';
 import { User } from './users.model';
 import { deletedMessage, UsersService } from './users.service';
@@ -15,7 +16,7 @@ export class UsersController {
   }
 
   @Get('/me')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   getMe(@AuthUser() user: User): Promise<User | null> {
     return this.usersService.findUser(user.id);
   }

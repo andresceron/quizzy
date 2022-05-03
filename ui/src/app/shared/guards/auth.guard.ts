@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     const currentUser = this.authService.currentAuthValue;
     if (currentUser) {
       if (!this.usersService.hasUser) {
-        this.usersService.setUser(currentUser.id);
+        this.usersService.setUser();
       }
       return true;
     }

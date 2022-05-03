@@ -1,11 +1,10 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeletedQuiz, Quiz } from '@interfaces/quiz.interface';
 import { PublicUser } from '@interfaces/user.interface';
 import { QuizService } from '@services/quiz.service';
 import { UsersService } from '@services/users.service';
-import { first } from 'rxjs';
+import { first, Observable } from 'rxjs';
 
 @Component({
   selector: 'qz-user',
@@ -15,7 +14,7 @@ import { first } from 'rxjs';
 
 export class UserComponent implements OnInit {
   public currentUserId: string;
-  public user: PublicUser;
+  public publicUser$: Observable<PublicUser>;
   public isOwner: boolean;
   public quizzes: Quiz[];
 
@@ -38,21 +37,15 @@ export class UserComponent implements OnInit {
       .getUserData()
       .pipe(first())
       .subscribe(user => {
-        console.log(user);
         this.isOwner = this.currentUserId === user.id;
       });
 
-    this.userService
-      .getUser(this.currentUserId)
-      .pipe(first())
-      .subscribe(publicUser => {
-        this.user = publicUser;
-      });
+    this.publicUser$ = this.userService.getUser(this.currentUserId);
   }
 
   private getQuizData(): void {
     this.quizService
-      .getUserPublicQuizzes(this.currentUserId)
+      .getUserQuizzes(this.currentUserId)
       .pipe(first())
       .subscribe(quizzes => {
         this.quizzes = quizzes;

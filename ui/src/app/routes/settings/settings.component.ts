@@ -35,13 +35,15 @@ export class SettingsComponent implements OnInit {
       return;
     }
 
-    this.userService
-      .updateUser(this.user.id, this.settingsFormGroup.value)
-      .pipe(first())
-      .subscribe(res => {
-        // TODO:: Handle this?
-        console.log('res:: ', res);
-      });
+    if (!!this.user) {
+      this.userService
+        .updateUser(this.user.id, this.settingsFormGroup.value)
+        .pipe(first())
+        .subscribe(res => {
+          // TODO:: Handle this?
+          console.log('res:: ', res);
+        });
+    }
   }
 
   private getUserData() {

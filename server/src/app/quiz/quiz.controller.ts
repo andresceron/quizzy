@@ -10,6 +10,8 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtGuard } from '../auth/jwt-user.guard';
 import { AuthUser } from '../users/user.decorator';
 import { User } from '../users/users.model';
 import { Quiz } from './quiz.model';
@@ -26,19 +28,21 @@ export class QuizController {
     return this.quizService.findAllPublicQuizzes();
   }
 
-  // TODO: Change to use JWT instead
   @Get('/user/:userId')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtGuard)
   getUserQuizzes(
     @Param('userId') userId: string,
     @AuthUser() user: User,
   ): Promise<Quiz[]> {
-
-    return this.quizService.findUsersQuizzes(userId);
+    if (user.id === userId) {
+      return this.quizService.findUsersAllQuizzes(userId);
+    } else {
+      return this.quizService.findUsersPublicQuizzes(userId);
+    }
   }
 
   @Get('/builder/:id')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   getQuiz(
     @Param('id') id: string,
     @AuthUser() user: User
@@ -52,7 +56,7 @@ export class QuizController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   deleteQuiz(
     @Param('id') id: string,
     @AuthUser() user: User
@@ -68,7 +72,7 @@ export class QuizController {
 
   @Post()
   @Header('content-type', 'application/json')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   newQuiz(@AuthUser() user: User, @Body() quiz: Quiz): Promise<Quiz | null> {
     return this.quizService.newQuiz(user.id, quiz);
   }

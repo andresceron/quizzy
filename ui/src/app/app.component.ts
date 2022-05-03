@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     if (this.authService.currentAuthValue) {
-      this.usersService.setUser(this.authService.currentAuthValue.id);
+      this.usersService.setUser();
     }
   }
 

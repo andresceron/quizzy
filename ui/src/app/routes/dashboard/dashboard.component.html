@@ -1,10 +1,10 @@
 <div class="container container__quizzy container__start dashboard">
   <div class="section-title text-center">
-    <h3 class="welcome mb-4">Hello, <span class="highlight">{{user?.name}}</span>!</h3>
+    <h3 class="welcome mb-4">Hello, <span class="highlight">{{(user$ | async)?.name}}</span>!</h3>
   </div>
 </div>
 <div class="container container__quizzy">
-  <a [routerLink]="['/user', user?.id]" class="block block--quizzes my-3">
+  <a [routerLink]="['/user', (user$ | async)?.id]" class="block block--quizzes my-3">
     <span>My Quizzes</span>
     <i class="fa fa-comment"></i>
   </a>

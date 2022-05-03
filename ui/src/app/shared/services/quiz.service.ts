@@ -51,6 +51,17 @@ export class QuizService {
       );
   }
 
+  public getUserQuizzes(userId: string): Observable<Quiz[]> {
+    return this.apiService
+      .get(`quiz/user/${userId}`)
+      .pipe(
+        first(),
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
   public getQuiz(quizId: string): Observable<Quiz> {
     return this.apiService
       .get(`quiz/${quizId}`)

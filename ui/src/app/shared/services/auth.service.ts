@@ -21,7 +21,9 @@ export class AuthService {
     private cs: ClientStorage
   ) {
     this.cs.logger$.subscribe(data => {
-      this.currentAuthSubject.next(data.storage[AppConstants.authState]);
+      if (data.storage[AppConstants.authState]) {
+        this.currentAuthSubject.next(data.storage[AppConstants.authState]);
+      }
     });
   }
 
@@ -44,11 +46,9 @@ export class AuthService {
       .pipe(
         first(),
         map((res: any) => { // CustomResponse
-          console.log(res);
-
           if (res?.id && res?.token) {
             this.cs.setItem(AppConstants.authState, res);
-            this.usersService.setUser(res.id);
+            this.usersService.setUser();
             this.token = res.token;
           }
 
@@ -111,6 +111,7 @@ export class AuthService {
 
   public logout() {
     this.token = false;
+    this.usersService.removeCurrentUser();
     this.cs.removeItem(AppConstants.authState);
     this.currentAuthSubject.next(null);
   }
