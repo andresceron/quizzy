@@ -6,7 +6,8 @@ import { QuizEntity } from './quiz.entity';
 import { Quiz } from './quiz.model';
 
 export interface deletedMessage {
-  message: string;
+  deleted: boolean,
+  message: string
 }
 
 @Injectable()
@@ -42,11 +43,12 @@ export class QuizService {
       .getMany();
   }
 
-  async findQuiz(id: string): Promise<Quiz | null> {
+  async findQuiz(id: string, userId: string): Promise<Quiz | null> {
     return await this.quizRepo.createQueryBuilder('q')
       .leftJoinAndSelect('q.questions', 'qt')
       .leftJoinAndSelect('qt.options', 'o')
-      .where('q.id = :id', { id: id})
+      .where('q.id = :id', { id: id })
+      .andWhere('q.owner = :owner', { owner: userId })
       .getOne();
 
     // This works as well
@@ -64,17 +66,33 @@ export class QuizService {
       .getOne();
   }
 
-  async deleteQuiz(id: string): Promise<deletedMessage> {
+  async deleteQuiz(id: string, userId: string): Promise<deletedMessage> {
     try {
-      const quizDeleted = await this.quizRepo.delete({ id: id });
 
-      if (quizDeleted.affected === 0 ) {
+      const quiz = await this.quizRepo
+        .createQueryBuilder('q')
+        .select(['q.id'])
+        .where('q.id = :id', { id: id })
+        .andWhere('q.owner = :owner', { owner: userId })
+        .getOne();
+
+      let quizDeleted;
+
+      if (quiz?.id) {
+        quizDeleted = await this.quizRepo.delete({ id: quiz.id });
+      }
+
+      if (quizDeleted?.affected === 0 ) {
         throw new HttpException('not found', HttpStatus.NOT_FOUND);
       }
 
       if (quizDeleted) {
-        return new Promise((resolve) => resolve({ message: 'quiz was deleted' }));
+        return new Promise((resolve) => resolve({
+          deleted: true,
+          message: 'Quiz was deleted'
+        }));
       }
+
       throw false;
 
     } catch (err) {

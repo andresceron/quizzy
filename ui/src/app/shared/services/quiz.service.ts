@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Quiz } from '@interfaces/quiz.interface';
+import { DeletedQuiz, Quiz } from '@interfaces/quiz.interface';
 import { first, Observable, ReplaySubject, map } from 'rxjs';
 import { ApiService } from './api.service';
 
@@ -37,7 +37,7 @@ export class QuizService {
         map((res: any) => {
           return res;
         })
-      )
+      );
   }
 
   public getUserPublicQuizzes(userId: string): Observable<Quiz[]> {
@@ -48,7 +48,7 @@ export class QuizService {
         map((res: any) => {
           return res;
         })
-      )
+      );
   }
 
   public getQuiz(quizId: string): Observable<Quiz> {
@@ -59,7 +59,18 @@ export class QuizService {
         map((res: any) => {
           return res;
         })
-      )
+      );
+  }
+
+  public deleteQuiz(quizId: string): Observable<DeletedQuiz> {
+    return this.apiService
+      .delete(`quiz/${quizId}`)
+      .pipe(
+        first(),
+        map((res: any) => {
+          return res;
+        })
+      );
   }
 
 }

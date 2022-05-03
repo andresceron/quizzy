@@ -12,7 +12,7 @@ export class QuizOptionEntity extends BaseEntity {
   @Column()
   is_correct: false;
 
-  @ManyToOne(() => QuizQuestionEntity, (quizQuestion) => quizQuestion.options, { onDelete: 'CASCADE' })
+  @ManyToOne(() => QuizQuestionEntity, (quizQuestion) => quizQuestion.options, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
   @JoinColumn({ name: 'question_id'})
   question_id: string;
 }

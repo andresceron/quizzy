@@ -18,5 +18,5 @@ export const NotificationText = {
   [NotificationType.Success]: 'success',
   [NotificationType.Warning]: 'warning',
   [NotificationType.Error]: 'error',
-  [NotificationType.Info]: 'error'
+  [NotificationType.Info]: 'info'
 }

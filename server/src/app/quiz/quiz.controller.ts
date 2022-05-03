@@ -17,7 +17,9 @@ import { QuizService } from './quiz.service';
 
 @Controller('quiz')
 export class QuizController {
-  constructor(private quizService: QuizService) {}
+  constructor(
+    private quizService: QuizService
+  ) {}
 
   @Get()
   getQuizzes(): Promise<Quiz[]> {
@@ -26,16 +28,23 @@ export class QuizController {
 
   // TODO: Change to use JWT instead
   @Get('/user/:userId')
-  // @UseGuards(AuthGuard('jwt'))
-  // getUserQuizzes(@AuthUser() user: User): Promise<Quiz[]> {
-  getUserQuizzes(@Param('userId') userId: string): Promise<Quiz[]> {
+  @UseGuards(AuthGuard('jwt'))
+  getUserQuizzes(
+    @Param('userId') userId: string,
+    @AuthUser() user: User,
+  ): Promise<Quiz[]> {
+
     return this.quizService.findUsersQuizzes(userId);
   }
 
-  // @Get(':id')
-  // getQuiz(@Param('id') id: string): Promise<Quiz | null> {
-  //   return this.quizService.findQuiz(id);
-  // }
+  @Get('/builder/:id')
+  @UseGuards(AuthGuard('jwt'))
+  getQuiz(
+    @Param('id') id: string,
+    @AuthUser() user: User
+  ): Promise<Quiz | null> {
+    return this.quizService.findQuiz(id, user.id);
+  }
 
   @Get(':id')
   getPlayQuiz(@Param('id') id: string): Promise<Quiz | null> {
@@ -43,8 +52,12 @@ export class QuizController {
   }
 
   @Delete(':id')
-  deleteQuiz(@Param('id') id: string): Promise<any> {
-    return this.quizService.deleteQuiz(id);
+  @UseGuards(AuthGuard('jwt'))
+  deleteQuiz(
+    @Param('id') id: string,
+    @AuthUser() user: User
+  ): Promise<any> {
+    return this.quizService.deleteQuiz(id, user.id);
   }
 
   @Put(':id')
