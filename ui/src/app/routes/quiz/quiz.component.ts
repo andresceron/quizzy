@@ -49,7 +49,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   public loadQuiz() {
-    this.currentQuestion = this.randomizedQuestions[0];
+    this.currentQuestion = this.quiz.questions[0];
     this.currentQuestionIndex = 0;
     this.updateStatus('inProgress');
   }
@@ -86,7 +86,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   public questionResponse(event: SelectedQuestion) {
-    const responseIndex = this.quizResponses.findIndex((response: any) => response.id === event.id);
+    const responseIndex = this.quizResponses.findIndex((response: SelectedQuestion) => response.id === event.id);
     if (responseIndex !== -1 ) {
       this.quizResponses[responseIndex] = event;
     } else {
@@ -114,7 +114,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   private setCurrentQuestion(number: number) {
-    this.currentQuestion = this.randomizedQuestions[number];
+    this.currentQuestion = this.quiz.questions[number];
     this.currentQuestionIndex = number;
   }
 
@@ -130,15 +130,15 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   private checkAnswerOption() {
     const emptyAnswer = {
-      id: this.randomizedQuestions[this.currentQuestionIndex].id,
-      name: this.randomizedQuestions[this.currentQuestionIndex].name,
+      id: this.quiz.questions[this.currentQuestionIndex].id,
+      name: this.quiz.questions[this.currentQuestionIndex].name,
       option: {
         id: null,
         name: 'Not answered'
       }
     }
 
-    const hasBeenAnswered = !!this.quizResponses.find((response: any) => response.id === this.quiz.questions[this.currentQuestionIndex].id);
+    const hasBeenAnswered = !!this.quizResponses.find((response: SelectedQuestion) => response.id === this.quiz.questions[this.currentQuestionIndex].id);
 
     if (!hasBeenAnswered) {
       this.quizResponses.push(emptyAnswer);
@@ -146,7 +146,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   private randomizeQuestions(questions: Question[]) {
-    this.randomizedQuestions =
+    this.quiz.questions =
       questions.map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);

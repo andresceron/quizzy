@@ -22,19 +22,22 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="status === 'inProgress'">
+  <ng-container *ngIf="status === 'inProgress' && !!currentQuestion; else incompleteQuiz">
     <qz-timer
       [class]="'container container__quizzy'"
       [duration]="duration"
       [reset]="resetTimerSubject"
-      (timeEnd)="timerCallback($event)"></qz-timer>
+      (timeEnd)="timerCallback($event)"
+    ></qz-timer>
+
     <qz-question
       [class]="'container container__quizzy'"
       [question]="currentQuestion"
       [questionNumber]="currentQuestionIndex + 1"
       [questionTotal]="totalQuestions"
       [resetSelected]="nextActionSubject"
-      (questionResponse)="questionResponse($event)"></qz-question>
+      (questionResponse)="questionResponse($event)"
+    ></qz-question>
 
     <div class="container container__quizzy mt-sm-5 my-1">
       <div class="d-flex justify-content-center pt-5">
@@ -59,3 +62,14 @@
     </div>
   </ng-container>
 </ng-container>
+
+<ng-template #incompleteQuiz>
+  <div class="container container__quizzy mt-sm-5 my-5">
+    <p class="text-center">Incomplete Quiz, please try again later</p>
+    <div class="d-flex justify-content-center pt-5">
+      <div class="ml-auto mr-sm-5">
+        <button class="btn btn-primary btn__rounded" (click)="nextQuestion(currentQuestionIndex)">Exit Quiz</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

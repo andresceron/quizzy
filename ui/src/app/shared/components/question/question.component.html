@@ -4,7 +4,7 @@
 </div>
 
 <div [ngClass]="class">
-  <p class="text">{{question.name}}</p>
+  <p class="text">{{question?.name}}</p>
 </div>
 
 <qz-answers
@@ -12,5 +12,6 @@
   [options]="question.options"
   [questionNumber]="questionNumber"
   [resetSelected]="resetSelected"
-  (selectedAnswer)="selectedAnswerOption($event)">
-</qz-answers>
+  (selectedAnswer)="selectedAnswerOption($event)"
+  *ngIf="question?.options"
+></qz-answers>
