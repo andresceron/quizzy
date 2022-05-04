@@ -75,11 +75,34 @@ export class UsersService {
   }
 
   async updateUser(id: string, user: User): Promise<UpdateResult | null> {
-    let userData = user;
-    if (!!user.password) {
-      userData.password = encodePassword(user.password);
+    if (!!user.password && user.password !== '') {
+      const password = encodePassword(user.password);
+      return await this.usersRepo
+        .createQueryBuilder()
+        .update(UsersEntity)
+        .set(
+          {
+            name: user.name,
+            email: user.email,
+            password: password
+          }
+        )
+        .where("id = :id", { id: id })
+        .execute();
+
+    } else {
+      return await this.usersRepo
+        .createQueryBuilder()
+        .update(UsersEntity)
+        .set(
+          {
+            name: user.name,
+            email: user.email
+          }
+        )
+        .where("id = :id", { id: id })
+        .execute();
     }
-    return await this.usersRepo.update({ id: id }, userData);
   }
 
   async addUser(user: CreateUserDto): Promise<User | null> {
