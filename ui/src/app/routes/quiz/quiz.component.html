@@ -22,30 +22,43 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="status === 'inProgress' && !!currentQuestion; else incompleteQuiz">
-    <qz-timer
-      [class]="'container container__quizzy'"
-      [duration]="duration"
-      [reset]="resetTimerSubject"
-      (timeEnd)="timerCallback($event)"
-    ></qz-timer>
+  <ng-container *ngIf="status === 'inProgress'">
+    <ng-container *ngIf="!!currentQuestion; else incompleteQuiz">
+      <qz-timer
+        [class]="'container container__quizzy'"
+        [duration]="duration"
+        [reset]="resetTimerSubject"
+        (timeEnd)="timerCallback($event)"
+      ></qz-timer>
 
-    <qz-question
-      [class]="'container container__quizzy'"
-      [question]="currentQuestion"
-      [questionNumber]="currentQuestionIndex + 1"
-      [questionTotal]="totalQuestions"
-      [resetSelected]="nextActionSubject"
-      (questionResponse)="questionResponse($event)"
-    ></qz-question>
+      <qz-question
+        [class]="'container container__quizzy'"
+        [question]="currentQuestion"
+        [questionNumber]="currentQuestionIndex + 1"
+        [questionTotal]="totalQuestions"
+        [resetSelected]="nextActionSubject"
+        (questionResponse)="questionResponse($event)"
+      ></qz-question>
 
-    <div class="container container__quizzy mt-sm-5 my-1">
-      <div class="d-flex justify-content-center pt-5">
-        <div class="ml-auto mr-sm-5">
-          <button class="btn btn-primary btn__rounded" (click)="nextQuestion(currentQuestionIndex)">{{buttonText}}</button>
+      <div class="container container__quizzy mt-sm-5 my-1">
+        <div class="d-flex justify-content-center pt-5">
+          <div class="ml-auto mr-sm-5">
+            <button class="btn btn-primary btn__rounded" (click)="nextQuestion(currentQuestionIndex)">{{buttonText}}</button>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
+
+    <ng-template #incompleteQuiz>
+      <div class="container container__quizzy mt-sm-5 my-5">
+        <p class="text-center">Incomplete Quiz, please try again later</p>
+        <div class="d-flex justify-content-center pt-5">
+          <div class="ml-auto mr-sm-5">
+            <a [routerLink]="['/quiz/list']" class="btn btn-primary btn__rounded">Exit Quiz</a>
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </ng-container>
 
   <ng-container *ngIf="status === 'showResults'">
@@ -62,14 +75,3 @@
     </div>
   </ng-container>
 </ng-container>
-
-<ng-template #incompleteQuiz>
-  <div class="container container__quizzy mt-sm-5 my-5">
-    <p class="text-center">Incomplete Quiz, please try again later</p>
-    <div class="d-flex justify-content-center pt-5">
-      <div class="ml-auto mr-sm-5">
-        <button class="btn btn-primary btn__rounded" (click)="nextQuestion(currentQuestionIndex)">Exit Quiz</button>
-      </div>
-    </div>
-  </div>
-</ng-template>

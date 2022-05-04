@@ -63,8 +63,8 @@ export class AuthService {
       .pipe(
         first(),
         map((res: any) => { // CustomResonse
-          if (res?.data?._id) {
-            return res.data;
+          if (res?.id) {
+            return res;
           }
         })
       );
@@ -76,8 +76,8 @@ export class AuthService {
         .pipe(
           first(),
           map((res: any) => { // CustomResonse
-            if (res?.data?.status) {
-              return res.data.status;
+            if (res?.status) {
+              return res.status;
             }
           })
         );
@@ -89,8 +89,8 @@ export class AuthService {
         .pipe(
           first(),
           map((res: any) => { // CustomResonse
-            if (res?.data?.status) {
-              return res.data.status;
+            if (res?.status) {
+              return res.status;
             }
           })
         );
@@ -102,8 +102,8 @@ export class AuthService {
         .pipe(
           first(),
           map((res: any) => { // CustomResonse
-            if (res?.data) {
-              return res.data;
+            if (!!res) {
+              return res;
             }
           })
         );

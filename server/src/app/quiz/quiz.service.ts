@@ -175,7 +175,7 @@ export class QuizService {
       return {
         id: o.id,
         name: o.name,
-        is_correct: correctData.some(d => d.questionId === qId && d.optionId === o.id)
+        is_correct: correctData.some(d => d.questionId === qId && d.optionId === o.id) || false
       }
     }
 

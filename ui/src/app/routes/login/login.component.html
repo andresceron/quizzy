@@ -12,8 +12,10 @@
           <input
             type="text"
             class="form-control form-control--rounded"
-            placeholder="Username"
-            formControlName="email">
+            placeholder="email"
+            formControlName="email"
+            [ngClass]="{'error': formSubmitted && form.email?.errors?.required}"
+            >
         </div>
         <div class="mb-3 mt-3 input__password">
           <i class="fa fa-lock"></i>
@@ -25,7 +27,7 @@
             [ngClass]="{'error': formSubmitted && form.password?.errors?.required}">
           <i class="fa" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (click)="showPassword = !showPassword"></i>
         </div>
-        <span *ngIf="(formSubmitted && form.password?.errors?.required) || formSubmitted && (form.password?.errors?.minlength || form.password?.errors?.maxlength)">Password should be between 6 and 30 characters</span>
+        <!-- <span *ngIf="(formSubmitted && form.password?.errors?.required) || formSubmitted && (form.password?.errors?.minlength || form.password?.errors?.maxlength)">Password should be between 6 and 30 characters</span> -->
         <a class="form-text forgot-password" [routerLink]="['/reset-password']">Forgot password?</a>
         <div class="my-4">
           <button type="submit" class="btn btn-primary btn__rounded">Login</button>

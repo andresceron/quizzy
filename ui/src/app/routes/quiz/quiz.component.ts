@@ -26,7 +26,6 @@ export class QuizComponent implements OnInit, OnDestroy {
   public readonly nextActionSubject = new Subject<boolean>();
   public readonly resetTimerSubject = new Subject<void>();
 
-  private randomizedQuestions: Question[] = [];
   private quizId: string;
 
   constructor(
@@ -107,7 +106,6 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.updateStatus('showResults');
     this.buttonText = 'Finish Quiz';
 
-    // console.log('set:: ', ...new Set(this.quizResponses)); // TODO: use set??
     this.quizService.checkAnswers(this.quizId, this.quizResponses).pipe(first()).subscribe(res => {
       this.quizResults = res;
     });
