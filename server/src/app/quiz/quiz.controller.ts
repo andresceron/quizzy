@@ -81,4 +81,12 @@ export class QuizController {
   newQuiz(@AuthUser() user: User, @Body() quiz: Quiz): Promise<Quiz | null> {
     return this.quizService.newQuiz(user.id, quiz);
   }
+
+  @Post('/answers/:quizId')
+  @Header('content-type', 'application/json')
+  quizAnswers(
+    @Param('quizId') quizId: string,
+    @Body() answers: any[]): Promise<string[]> {
+    return this.quizService.checkQuizAnswers(quizId, answers);
+  }
 }

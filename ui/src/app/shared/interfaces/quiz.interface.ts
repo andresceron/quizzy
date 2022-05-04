@@ -22,9 +22,9 @@ export interface SelectedQuestion {
 }
 
 export interface Option {
-  id: string,
+  id: string | null,
   name: string,
-  is_correct: boolean
+  is_correct?: boolean
 }
 
 export interface DeletedQuiz {

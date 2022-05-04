@@ -151,4 +151,39 @@ export class QuizService {
     }
   }
 
+  // TEMPORAL?? DO IT DIFFERNTLY?
+  async checkQuizAnswers(quizId: string, answers: any[]): Promise<string[]> {
+    const data = await this.quizRepo.createQueryBuilder('q')
+      .leftJoinAndSelect('q.questions', 'qt')
+      .leftJoinAndSelect('qt.options', 'o')
+      .where('q.id = :id', { id: quizId })
+      .getOne();
+
+    const correctData: any[] = [];
+    data?.questions.forEach(q => {
+      q.options.forEach(o => {
+        if (o.is_correct) {
+          correctData.push({
+            questionId: q.id,
+            optionId: o.id
+          });
+        }
+      })
+    })
+
+    const checkCorrect = (qId: string, o: any) => {
+      return {
+        id: o.id,
+        name: o.name,
+        is_correct: correctData.some(d => d.questionId === qId && d.optionId === o.id)
+      }
+    }
+
+    const responseData = answers.map(q => {
+      return {...q, option: checkCorrect(q.id, q.option) }
+    })
+
+    return responseData;
+  }
+
 }

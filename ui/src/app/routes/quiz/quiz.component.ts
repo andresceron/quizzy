@@ -12,25 +12,21 @@ import { first, Subject } from 'rxjs';
 
 export class QuizComponent implements OnInit, OnDestroy {
   public quiz: Quiz;
-
   public currentQuestionIndex: number = 0;
   public currentQuestion: any = {};
   public totalQuestions: any = {};
-  public nextCall: boolean = false;
   public buttonText: string = 'Next Question';
   public status: string = 'init';
-
   public quizName: string = 'Quiz Title';
   public quizDescription: string = 'Quiz Description';
-  public isNextBtnDisabled: boolean = true;
-  public hasTimeEnded: boolean = false;
   public duration: number = 0;
-  public quizResponses: any = [];
-  public randomizedQuestions: Question[] = [];
+  public quizResponses: SelectedQuestion[] = [];
+  public quizResults: Question[] = [];
 
   public readonly nextActionSubject = new Subject<boolean>();
   public readonly resetTimerSubject = new Subject<void>();
 
+  private randomizedQuestions: Question[] = [];
   private quizId: string;
 
   constructor(
@@ -71,8 +67,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     let currIdx = ++index;
 
     if (currIdx === this.totalQuestions) {
-      this.updateStatus('showResults');
-      this.buttonText = 'Finish Quiz';
+      this.showResults();
       return;
     }
 
@@ -108,6 +103,16 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.quizService.setDisableAnswersStatus(hasTimeEnded);
   }
 
+  private showResults() {
+    this.updateStatus('showResults');
+    this.buttonText = 'Finish Quiz';
+
+    // console.log('set:: ', ...new Set(this.quizResponses)); // TODO: use set??
+    this.quizService.checkAnswers(this.quizId, this.quizResponses).pipe(first()).subscribe(res => {
+      this.quizResults = res;
+    });
+  }
+
   private setCurrentQuestion(number: number) {
     this.currentQuestion = this.randomizedQuestions[number];
     this.currentQuestionIndex = number;
@@ -117,7 +122,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.totalQuestions = totalQuestions;
   }
 
-  private setQuizBasics(data: any) {
+  private setQuizBasics(data: Quiz) {
     this.quizName = data.title;
     this.quizDescription = data.description;
     this.duration = data.duration;
@@ -129,8 +134,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       name: this.randomizedQuestions[this.currentQuestionIndex].name,
       option: {
         id: null,
-        name: 'Not answered',
-        is_correct: false
+        name: 'Not answered'
       }
     }
 

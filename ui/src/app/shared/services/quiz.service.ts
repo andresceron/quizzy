@@ -84,4 +84,16 @@ export class QuizService {
       );
   }
 
+  public checkAnswers(quizId: string, data: any[]): Observable<any> {
+    return this.apiService
+      .post(`quiz/answers/${quizId}`, data)
+      .pipe(
+        first(),
+        map((res: any) => {
+          console.log('what is answers??');
+          return res;
+        })
+      )
+  }
+
 }
