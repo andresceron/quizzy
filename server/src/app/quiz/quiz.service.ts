@@ -186,4 +186,34 @@ export class QuizService {
     return responseData;
   }
 
+  async setQuizCount(quizId: string, type: string): Promise<any> {
+    const quiz = await this.quizRepo
+      .createQueryBuilder('q')
+      .select(['q.visited', 'q.played'])
+      .where('q.id = :id', { id: quizId })
+      .getOne();
+
+    if (quiz && type === 'visited') {
+      await this.quizRepo
+        .createQueryBuilder()
+        .update()
+        .set(
+          { visited: ++quiz.visited }
+        )
+        .where("id = :id", { id: quizId })
+        .execute();
+    }
+
+    if (quiz && type === 'played') {
+      await this.quizRepo
+        .createQueryBuilder()
+        .update()
+        .set(
+          { played: ++quiz.played }
+        )
+        .where("id = :id", { id: quizId })
+        .execute();
+    }
+  }
+
 }

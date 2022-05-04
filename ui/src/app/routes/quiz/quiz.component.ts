@@ -36,6 +36,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.quizId = this.route.snapshot.paramMap.get('id') || '';
     this.configureQuiz();
+    this.setCounter('visited');
   }
 
   private configureQuiz() {
@@ -109,6 +110,8 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.quizService.checkAnswers(this.quizId, this.quizResponses).pipe(first()).subscribe(res => {
       this.quizResults = res;
     });
+
+    this.setCounter('played');
   }
 
   private setCurrentQuestion(number: number) {
@@ -148,6 +151,10 @@ export class QuizComponent implements OnInit, OnDestroy {
       questions.map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
+  }
+
+  private setCounter(type: string) {
+    this.quizService.setQuizCount(this.quizId, type);
   }
 
 }

@@ -17,6 +17,7 @@ export class UserComponent implements OnInit {
   public publicUser$: Observable<PublicUser>;
   public isOwner: boolean;
   public quizzes: Quiz[];
+  public quizCount: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +50,7 @@ export class UserComponent implements OnInit {
       .pipe(first())
       .subscribe(quizzes => {
         this.quizzes = quizzes;
+        this.setQuizCount(this.quizzes);
       });
   }
 
@@ -74,5 +76,11 @@ export class UserComponent implements OnInit {
 
   public newQuiz() {
     this.router.navigate(['/quiz/builder']);
+  }
+
+  private setQuizCount(quizzes: Quiz[]) {
+    this.quizCount = quizzes.reduce((acc, val) => acc + val.visited, 0);
+    console.log(this.quizCount);
+
   }
 }

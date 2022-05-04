@@ -6,8 +6,10 @@ export interface Quiz {
   duration: number,
   visibility: string,
   created_at: Date,
-  updated_at: Date
-  questions: QuizQuestion[]
+  updated_at: Date,
+  questions: QuizQuestion[],
+  visited: number,
+  played: number
 }
 
 export interface QuizQuestion {

@@ -96,4 +96,10 @@ export class QuizService {
       )
   }
 
+  public setQuizCount(quizId: string, type: string): void {
+    this.apiService.put(`quiz/${quizId}/${type}`, {})
+      .pipe(first())
+      .subscribe();
+  }
+
 }

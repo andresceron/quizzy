@@ -9,7 +9,6 @@ import {
   Post,
   UseGuards
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtGuard } from '../auth/jwt-user.guard';
 import { AuthUser } from '../users/user.decorator';
@@ -88,5 +87,17 @@ export class QuizController {
     @Param('quizId') quizId: string,
     @Body() answers: any[]): Promise<string[]> {
     return this.quizService.checkQuizAnswers(quizId, answers);
+  }
+
+  @Put(':quizId/visited')
+  @Header('content-type', 'application/json')
+  visitedQuiz(@Param('quizId') quizId: string) {
+    this.quizService.setQuizCount(quizId, 'visited');
+  }
+
+  @Put(':quizId/played')
+  @Header('content-type', 'application/json')
+  playedQuiz(@Param('quizId') quizId: string) {
+    this.quizService.setQuizCount(quizId, 'played');
   }
 }

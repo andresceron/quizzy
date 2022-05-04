@@ -4,9 +4,11 @@ export interface Quiz {
   description: string,
   duration: number,
   visibility: string,
-  questions: Question[]
-  created_at?: string;
-  updated_at?: string;
+  questions: Question[],
+  created_at?: string,
+  updated_at?: string,
+  visited: number,
+  played: number
 }
 
 export interface Question {
