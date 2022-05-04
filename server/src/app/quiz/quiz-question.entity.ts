@@ -15,6 +15,6 @@ export class QuizQuestionEntity extends BaseEntity {
   @JoinColumn({ name: 'quiz_id'})
   quiz_id: string;
 
-  @OneToMany(() => QuizOptionEntity, (quizOptions) => quizOptions.question_id, { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+  @OneToMany(() => QuizOptionEntity, (quizOptions) => quizOptions.question_id, { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE', eager: true })
   options: QuizOption[];
 }

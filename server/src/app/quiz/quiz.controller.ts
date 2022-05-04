@@ -65,9 +65,14 @@ export class QuizController {
   }
 
   @Put(':id')
+  @UseGuards(JwtAuthGuard)
   @Header('content-type', 'application/json')
-  updateQuiz(@Param('id') id: string, @Body() user: Quiz) {
-    return this.quizService.updateQuiz(id, user);
+  updateQuiz(
+    @Param('id') id: string,
+    @AuthUser() user: User,
+    @Body() quiz: Quiz
+  ) {
+    return this.quizService.updateQuiz(user.id, id, quiz);
   }
 
   @Post()

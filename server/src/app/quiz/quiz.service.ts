@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import Logger from '../../config/logger';
 import { QuizEntity } from './quiz.entity';
 import { Quiz } from './quiz.model';
@@ -101,11 +101,34 @@ export class QuizService {
     }
   }
 
-  async updateQuiz(id: string, quiz: Quiz) {
+  async updateQuiz(userId: string, id: string, quiz: Quiz): Promise<Quiz> {
+
+    // const quizUpdate = await this.quizRepo
+    //   .createQueryBuilder('q')
+    //   .leftJoinAndSelect('q.questions', 'qt')
+    //   .leftJoinAndSelect('qt.options', 'o')
+    //   .update(quiz)
+    //   .where('q.id = :id', { id: id })
+    //   // .andWhere('q.owner = :owner', { owner: userId })
+    //   .execute();
+    // return quizUpdate;
+
+    // try {
+    //   return await this.quizRepo.update({ id: id }, quiz).catch((e) => {
+    //     throw new HttpException('Quiz could not be updated', HttpStatus.BAD_REQUEST);
+    //   });
+    // } catch (err) {
+    //   Logger.error(err);
+    //   throw err;
+    // }
+
     try {
-      return await this.quizRepo.update({ id: id }, quiz).catch((e) => {
-        throw new HttpException('Quiz could not be updated', HttpStatus.BAD_REQUEST);
-      });
+      const hasQuiz = await this.quizRepo.preload(quiz);
+      if (!!hasQuiz) {
+        return await this.quizRepo.save(quiz);
+      } else {
+        throw new HttpException('Something went wrong', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
     } catch (err) {
       Logger.error(err);
       throw err;

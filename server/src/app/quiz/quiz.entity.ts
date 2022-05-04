@@ -34,7 +34,7 @@ export class QuizEntity extends BaseEntity {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updated_at: Date;
 
-  @OneToMany(() => QuizQuestionEntity, (quizQuestions) => quizQuestions.quiz_id, { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+  @OneToMany(() => QuizQuestionEntity, (quizQuestions) => quizQuestions.quiz_id, { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE', eager: true })
   questions: QuizQuestion[];
 
   @ManyToOne(() => UsersEntity, (user) => user.id)

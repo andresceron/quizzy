@@ -105,7 +105,6 @@ export class HeaderComponent implements OnInit {
       case '/settings':
       case '/join':
       case '/quiz/list':
-      case '/quiz/builder':
         this.isQuiz = false;
         break;
       default:
@@ -113,7 +112,11 @@ export class HeaderComponent implements OnInit {
         break;
     }
 
-    if (this.router.url.includes('/user') || this.router.url.includes('/analytics')) {
+    if (
+      this.router.url.includes('/user') ||
+      this.router.url.includes('/analytics') ||
+      this.router.url.includes('/quiz/builder')
+    ) {
       this.isQuiz = false;
     }
 
