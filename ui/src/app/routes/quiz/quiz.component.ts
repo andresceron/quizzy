@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Question, Quiz, SelectedQuestion } from '@interfaces/quiz.interface';
 import { QuizService } from '@services/quiz.service';
 import { first, Subject } from 'rxjs';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'qz-quiz',
@@ -22,6 +23,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   public duration: number = 0;
   public quizResponses: SelectedQuestion[] = [];
   public quizResults: Question[] = [];
+  public baseUrl: string = environment.baseUrl;
 
   public readonly nextActionSubject = new Subject<boolean>();
   public readonly resetTimerSubject = new Subject<void>();
@@ -94,9 +96,8 @@ export class QuizComponent implements OnInit, OnDestroy {
     }
   }
 
-  public copyLink(quizId: string) {
-    const link = `https://www.quizzy.com/quiz/${quizId}`
-    navigator.clipboard.writeText(link);
+  public async copyLink(quizId: string) {
+    // TODO
   }
 
   public timerCallback(hasTimeEnded: boolean) {

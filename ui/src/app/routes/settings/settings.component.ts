@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from '@interfaces/user.interface';
+import { NotificationService } from '@services/notification.service';
 import { UsersService } from '@services/users.service';
 import { first } from 'rxjs';
 
@@ -22,7 +24,9 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UsersService
+    private userService: UsersService,
+    private notificationService: NotificationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,8 +44,12 @@ export class SettingsComponent implements OnInit {
         .updateUser(this.user.id, this.settingsFormGroup.value)
         .pipe(first())
         .subscribe(res => {
-          // TODO:: Handle this?
-          console.log('res:: ', res);
+          if (!!res.id) {
+            this.showSuccessMessage('User updated successfully');
+            this.goToDashboard();
+          } else {
+            this.showErrorMessage('Problem updating user. Please try again later');
+          }
         });
     }
   }
@@ -58,5 +66,17 @@ export class SettingsComponent implements OnInit {
       name: this.user.name,
       email: this.user.email
     });
+  }
+
+  public goToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  private showSuccessMessage(message: string) {
+    this.notificationService.success(message, 3000);
+  }
+
+  private showErrorMessage(message: string) {
+    this.notificationService.error(message, 3000);
   }
 }

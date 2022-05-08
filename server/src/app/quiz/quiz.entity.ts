@@ -28,11 +28,11 @@ export class QuizEntity extends BaseEntity {
   @Column()
   visibility: string;
 
-  @Column()
-  visited: number;
+  @Column({ default: true })
+  visited: number = 0;
 
-  @Column()
-  played: number;
+  @Column({ default: true })
+  played: number = 0;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
@@ -44,6 +44,6 @@ export class QuizEntity extends BaseEntity {
   questions: QuizQuestion[];
 
   @ManyToOne(() => UsersEntity, (user) => user.id)
-  @JoinColumn({ name: 'owner'})
-  owner: string;
+  @JoinColumn({ name: 'user_id'})
+  user_id: string;
 }

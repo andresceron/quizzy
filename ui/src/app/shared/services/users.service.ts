@@ -61,7 +61,8 @@ export class UsersService {
       .pipe(
         first(),
         map((res: any) => { // User
-          if (res?.email) {
+          if (res?.email && this.user) {
+            this.currentUserSubject.next({...this.user, name: res.name, email: res.email });
             return res;
           }
           return false;

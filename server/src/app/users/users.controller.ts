@@ -1,5 +1,4 @@
 import { Controller, Get, Header, Param, Delete, Put, Body, Post, UseGuards } from '@nestjs/common';
-import { UpdateResult } from 'typeorm';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AuthUser } from './user.decorator';
 import { User } from './users.model';
@@ -37,7 +36,7 @@ export class UsersController {
 
   @Put(':id')
   @Header('content-type', 'application/json')
-  updateUser(@Param('id') id: string, @Body() user: User): Promise<UpdateResult | null> {
+  updateUser(@Param('id') id: string, @Body() user: User): Promise<User | null> {
     return this.usersService.updateUser(id, user);
   }
 

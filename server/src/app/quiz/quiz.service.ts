@@ -30,7 +30,7 @@ export class QuizService {
     return await this.quizRepo.createQueryBuilder('q')
       .leftJoinAndSelect('q.questions', 'qt')
       .leftJoinAndSelect('qt.options', 'o')
-      .where('q.owner = :owner', { owner: userId })
+      .where('q.user_id = :user_id', { user_id: userId })
       .andWhere('q.visibility = :visibility', { visibility: 'public' })
       .getMany();
   }
@@ -39,7 +39,7 @@ export class QuizService {
     return await this.quizRepo.createQueryBuilder('q')
       .leftJoinAndSelect('q.questions', 'qt')
       .leftJoinAndSelect('qt.options', 'o')
-      .where('q.owner = :owner', { owner: userId })
+      .where('q.user_id = :user_id', { user_id: userId })
       .getMany();
   }
 
@@ -48,11 +48,8 @@ export class QuizService {
       .leftJoinAndSelect('q.questions', 'qt')
       .leftJoinAndSelect('qt.options', 'o')
       .where('q.id = :id', { id: id })
-      .andWhere('q.owner = :owner', { owner: userId })
+      .andWhere('q.user_id = :user_id', { user_id: userId })
       .getOne();
-
-    // This works as well
-    return await this.quizRepo.findOne({ where: { id: id }, relations: ['questions', 'questions.options']});
   }
 
   async findQuizWithoutAnswers(id: string): Promise<Quiz | null> {
@@ -73,7 +70,7 @@ export class QuizService {
         .createQueryBuilder('q')
         .select(['q.id'])
         .where('q.id = :id', { id: id })
-        .andWhere('q.owner = :owner', { owner: userId })
+        .andWhere('q.user_id = :user_id', { user_id: userId })
         .getOne();
 
       let quizDeleted;
@@ -103,25 +100,6 @@ export class QuizService {
 
   async updateQuiz(userId: string, id: string, quiz: Quiz): Promise<Quiz> {
 
-    // const quizUpdate = await this.quizRepo
-    //   .createQueryBuilder('q')
-    //   .leftJoinAndSelect('q.questions', 'qt')
-    //   .leftJoinAndSelect('qt.options', 'o')
-    //   .update(quiz)
-    //   .where('q.id = :id', { id: id })
-    //   // .andWhere('q.owner = :owner', { owner: userId })
-    //   .execute();
-    // return quizUpdate;
-
-    // try {
-    //   return await this.quizRepo.update({ id: id }, quiz).catch((e) => {
-    //     throw new HttpException('Quiz could not be updated', HttpStatus.BAD_REQUEST);
-    //   });
-    // } catch (err) {
-    //   Logger.error(err);
-    //   throw err;
-    // }
-
     try {
       const hasQuiz = await this.quizRepo.preload(quiz);
       if (!!hasQuiz) {
@@ -143,7 +121,7 @@ export class QuizService {
       }
 
       const quizData = this.quizRepo.create(quiz);
-      quizData.owner = userId;
+      quizData.user_id = userId;
       return await this.quizRepo.save(quizData);
     } catch (err) {
       Logger.error(err);

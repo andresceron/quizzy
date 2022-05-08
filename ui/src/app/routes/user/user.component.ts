@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeletedQuiz, Quiz } from '@interfaces/quiz.interface';
 import { PublicUser } from '@interfaces/user.interface';
+import { QuizBuilderService } from '@services/quiz-builder.service';
 import { QuizService } from '@services/quiz.service';
 import { UsersService } from '@services/users.service';
 import { first, Observable } from 'rxjs';
@@ -23,12 +24,14 @@ export class UserComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UsersService,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private quizBuilderSerivce: QuizBuilderService
   ) {
   }
 
   ngOnInit(): void {
     this.currentUserId = this.route.snapshot.paramMap.get('id') || '';
+    this.quizBuilderSerivce.destroyQuiz();
     this.getUserData();
     this.getQuizData();
   }
@@ -80,7 +83,5 @@ export class UserComponent implements OnInit {
 
   private setQuizCount(quizzes: Quiz[]) {
     this.quizCount = quizzes.reduce((acc, val) => acc + val.visited, 0);
-    console.log(this.quizCount);
-
   }
 }

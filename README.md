@@ -1,10 +1,7 @@
 # Quizzy
 
-## Frontend
-The Frontend of this project is located inside UI. Go to the Frontends [README](./ui/README.md).
+The backend was made with NodeJS and NestJS.
 
-## Backend
-TODO
+You need to install all dependencies in each folder (ui and server) by doing `npm install`
 
-## Other
-Other relevant information will be found here
+Then start both UI and SERVER by doing `npm run start` for ui and `npm run start:dev` for server.

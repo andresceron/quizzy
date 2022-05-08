@@ -74,7 +74,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
 
   public onExit() {
     // TODO:: before:unload?
-    this.quizBuilderService.destroyQuiz(); // TODO ????
+    this.quizBuilderService.destroyQuiz();
     this.showWarningMessage('You have exited the quiz builder without saving');
     this.router.navigate([`user/${this.user.id}`]);
   }
@@ -114,6 +114,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
       this.quizBuilderService.updateAndSaveQuiz(this.quizId, this.quizBuilderForm.value).pipe(first()).subscribe((quiz: Quiz) => {
         if (!!quiz.id) {
           this.showSuccessMessage('Quiz was updated');
+          this.quizBuilderService.destroyQuiz();
           this.router.navigate([`/user/${this.user.id}`])
         }
       })
@@ -121,6 +122,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
       this.quizBuilderService.createAndSaveQuiz(this.quizBuilderForm.value).pipe(first()).subscribe((quiz: Quiz) => {
         if (!!quiz.id) {
           this.showSuccessMessage('Quiz was created');
+          this.quizBuilderService.destroyQuiz();
           this.router.navigate([`/user/${this.user.id}`])
         }
       })

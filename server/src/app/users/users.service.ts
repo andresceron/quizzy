@@ -74,35 +74,41 @@ export class UsersService {
     }
   }
 
-  async updateUser(id: string, user: User): Promise<UpdateResult | null> {
-    if (!!user.password && user.password !== '') {
-      const password = encodePassword(user.password);
-      return await this.usersRepo
-        .createQueryBuilder()
-        .update(UsersEntity)
-        .set(
-          {
-            name: user.name,
-            email: user.email,
-            password: password
-          }
-        )
-        .where("id = :id", { id: id })
-        .execute();
+  async updateUser(id: string, user: User): Promise<User | null> {
+    try {
+      if (!!user.password && user.password !== '') {
+        const password = encodePassword(user.password);
+        const updateUserWithPassword = await this.usersRepo
+          .createQueryBuilder()
+          .update(UsersEntity)
+          .set(
+            {
+              name: user.name,
+              email: user.email,
+              password: password
+            }
+          )
+          .where("id = :id", { id: id })
+          .execute();
 
-    } else {
-      return await this.usersRepo
-        .createQueryBuilder()
-        .update(UsersEntity)
-        .set(
-          {
-            name: user.name,
-            email: user.email
-          }
-        )
-        .where("id = :id", { id: id })
-        .execute();
+      } else {
+        const updateUser = await this.usersRepo
+          .createQueryBuilder()
+          .update(UsersEntity)
+          .set(
+            {
+              name: user.name,
+              email: user.email
+            }
+          )
+          .where("id = :id", { id: id })
+          .execute();
+      }
+    } catch (err) {
+      throw new HttpException('Problem updating user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    return await this.usersRepo.findOne({ where: { email: user.email } });
   }
 
   async addUser(user: CreateUserDto): Promise<User | null> {
